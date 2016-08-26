@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>股票代號{{stock_id}}</title>
+	</head>
+	<body>
+		<h2>{{stock_id}}</h2>
+		<div>
+			<table style="border: 1px solid #666;" rules="all" cellpadding="6">
+				<tbody>
+					<tr>
+						<th>股票代號</th>
+						<th>時間</th>
+						<th>成交</th>
+						<th>買進</th>
+						<th>賣出</th>
+						<th>漲跌</th>
+						<th>張數</th>
+						<th>昨收</th>
+						<th>開盤</th>
+						<th>最高</th>
+						<th>最低</th>
+						<th>個股資料</th>
+					</tr>
+					<tr>
+						<th>{{stock_id}}</th>
+						<th>{{current_time}}</th>
+						<th>{{end_price}}</th>
+						<th>{{buy_price}}</th>
+						<th>{{sell_price}}</th>
+						<th>{{change}}</th>
+						<th>{{total_num}}</th>
+						<th>{{yesterday_end}}</th>
+						<th>{{start_price}}</th>
+						<th>{{high_price}}</th>
+						<th>{{low_price}}</th>
+						<th><a href={{info_url}}>{{stock_info}}</a></th>
+					</tr>
+					<form action="/addTrade/" method="post">
+						<input type="hidden" name="stock_id" value={{stock_id}}>
+						<tr>
+							<th>下單</th>
+							<td colspan="11">
+								<input type="radio" name="buysell" value="b">買
+								<input type="radio" name="buysell" value="s">賣
+								<input type="text" name="vol" size="5">張
+								<input type="submit" value="送出">
+							</td>
+						</tr>
+					</form>
+				</tbody>
+			</table>
+			<h4>資料來源：<a href={{url}}>Yahoo!股市</a></h4>
+		</div>
+	</body>
+</html>
