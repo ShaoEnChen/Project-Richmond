@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from datetime import datetime
-from bs4 import BeautifulSoup
 from .models import trade # models (database)
 import re # REGEX
 import pytz # time
@@ -26,23 +25,28 @@ def showStock(request):
 			tpe = pytz.timezone('Asia/Taipei')
 			current_time = tpe.fromutc(utcnow)
 
+			# crawling Yahoo!Stock
 			url = "https://tw.stock.yahoo.com/q/q?s="
 			url += stock_id
 			headers = {
 				'User-Agent': 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
 			}
-			page = requests.get(url, headers = headers)
-			soup = BeautifulSoup(page.text, "html.parser")
+			page = requests.get(url, headers = headers).text
+			# crawl pattern
+			crawl_p = '<td align="center" bgcolor="#FFFfff" nowrap>(.*?)</td>'
+			crawl_pat = re.compile(crawl_p)
+			# list
+			result = crawl_pat.findall(page)
 
-			end_price = soup.title.text
-			buy_price = ""
-			sell_price = ""
+			end_price = result[1]
+			buy_price = result[2]
+			sell_price = result[3]
 			change = ""
-			total_num = ""
-			yesterday_end = ""
-			start_price = ""
-			high_price = ""
-			low_price = ""
+			total_num = result[4]
+			yesterday_end = result[5]
+			start_price = result[6]
+			high_price = result[7]
+			low_price = result[8]
 			stock_info = "詳細內容"
 			info_url = "https://tw.finance.yahoo.com/q/ts?s="
 			info_url += stock_id
