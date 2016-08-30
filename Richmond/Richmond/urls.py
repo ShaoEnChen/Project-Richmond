@@ -15,13 +15,15 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 # custom
-from trade.views import home
+from index.views import showIndex
+from trade.views import selectStock
 from trade.views import showStock
 from trade.views import addTrade
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-	url(r'^trade/$', home),
+	url(r'^admin/', include(admin.site.urls)),
+	url(r'^$', showIndex),
+	url(r'^trade/$', selectStock),
 	url(r'^stock/$', showStock),
 	url(r'^addTrade/$', addTrade),
 ]

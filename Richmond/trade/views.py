@@ -11,8 +11,8 @@ import requests
 p = '^[0-9]+$'
 pat = re.compile(p)
 
-def home(request):
-	return render(request, 'home.html')
+def selectStock(request):
+	return render(request, 'select_stock.html')
 
 def showStock(request):
 	if request.method == 'GET' and 'stock_id' in request.GET:
@@ -69,9 +69,9 @@ def showStock(request):
 				'info_url': info_url,
 			})
 		else:
-			return redirect(home, permanent = True)
+			return redirect(selectStock, permanent = True)
 	else:
-		return redirect(home, permanent = True)
+		return redirect(selectStock, permanent = True)
 
 def addTrade(request):
 	if request.method == 'POST' and 'stock_id' in request.POST:
@@ -83,8 +83,8 @@ def addTrade(request):
 			current_time = tpe.fromutc(utcnow)
 
 			trade.objects.create(player_name = 'sean', trade = request.POST['buysell'], trade_company = stock_id, trade_num = request.POST['vol'], created_at = current_time)
-			return redirect(home, permanent = True)
+			return redirect(selectStock, permanent = True)
 		else:
 			return redirect('/stock/?stock_id=' + stock_id)
 	else:
-		return redirect(home, permanent = True)
+		return redirect(selectStock, permanent = True)
