@@ -43,12 +43,12 @@ def showStock(request):
 			end_price = result[1]
 			buy_price = result[2]
 			sell_price = result[3]
-			change = ""
 			total_num = result[4]
 			yesterday_end = result[5]
 			start_price = result[6]
 			high_price = result[7]
 			low_price = result[8]
+			change = round(float(end_price) - float(yesterday_end), 2)
 			stock_info = "詳細內容"
 			info_url = "https://tw.finance.yahoo.com/q/ts?s="
 			info_url += stock_id
