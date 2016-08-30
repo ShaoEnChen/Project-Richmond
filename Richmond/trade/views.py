@@ -21,11 +21,9 @@ def showStock(request):
 		result = re.match(pat, stock_id)
 		# if don't match, result returns None
 		if result != None:
-			# get current time in Taipei
-			utcnow = datetime.utcnow()
-			tpe = pytz.timezone('Asia/Taipei')
-			current_time = tpe.fromutc(utcnow)
-
+			# get current time in 'Asia/Taipei'
+			current_time = datetime.now()
+			
 			# crawling Yahoo!Stock
 			url = "https://tw.stock.yahoo.com/q/q?s="
 			url += stock_id
@@ -36,8 +34,11 @@ def showStock(request):
 			# crawl pattern
 			crawl_p = '<td align="center" bgcolor="#FFFfff" nowrap>(.*?)</td>'
 			crawl_pat = re.compile(crawl_p)
-			# list
-			result = crawl_pat.findall(page)
+			result = crawl_pat.findall(page)	# list
+			trunc_p = '<.*?>'
+			trunc_pat = re.compile(trunc_p)
+			for i in range(len(result)):
+				result[i] = trunc_pat.sub('', result[i])
 
 			end_price = result[1]
 			buy_price = result[2]
