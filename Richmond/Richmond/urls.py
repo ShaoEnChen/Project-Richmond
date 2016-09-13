@@ -15,15 +15,19 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 # custom
-from index.views import showIndex
-from trade.views import selectStock
-from trade.views import showStock
-from trade.views import addTrade
+from index.views import index_view
+from trade.views import select_stock_view, stock_view, add_trade
+from players.views import login_view, login, register_view, register
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
-	url(r'^$', showIndex),
-	url(r'^trade/$', selectStock),
-	url(r'^stock/$', showStock),
-	url(r'^addTrade/$', addTrade),
+	url(r'^$', index_view),
+	url(r'^trade/$', select_stock_view),
+	url(r'^stock/$', stock_view),
+	url(r'^addTrade/$', add_trade),
+	url(r'^accounts/login/$', login_view),
+	url(r'^accounts/login/register$', register_view),
+	url(r'^login/$', login),
+	url(r'^register/$', register),
+	url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'next_page': '/accounts/login'}),
 ]

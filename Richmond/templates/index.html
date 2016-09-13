@@ -6,8 +6,18 @@
 	</head>
 	<body>
 		<h2>首頁</h2>
-		<a href="admin">管理</a>
-		<br>
-		<a href="trade">交易</a>
+		{% if request.user.is_authenticated %}
+			<h4>您好，{{request.user}}</h4>
+			{% if request.user.is_superuser %}
+				<a href="admin">管理</a>
+				<br>
+			{% endif %}
+			<a href="trade">交易</a>
+			<br>
+			<a href="accounts/logout">登出</a>
+		{% else %}
+			<h4>您還尚未登入！</h4>
+			<a href="accounts/login">登入</a>
+		{% endif %}
 	</body>
 </html>

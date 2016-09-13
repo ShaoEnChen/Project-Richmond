@@ -1,8 +1,7 @@
 # This Python file uses the following encoding: utf-8
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from datetime import datetime
-from .models import trade # models (database)
+from .models import trade
 import re # REGEX
 import pytz # time
 import requests
@@ -11,10 +10,10 @@ import requests
 p = '^[0-9]+$'
 pat = re.compile(p)
 
-def selectStock(request):
-	return render(request, 'select_stock.html')
+def select_stock_view(request):
+	return render(request, 'trade/select_stock.html')
 
-def showStock(request):
+def stock_view(request):
 	if request.method == 'GET' and 'stock_id' in request.GET:
 		stock_id = request.GET['stock_id']
 		# compare stock_id with REGEX
@@ -24,36 +23,22 @@ def showStock(request):
 			# get current time in 'Asia/Taipei'
 			current_time = datetime.now()
 			
-			# crawling Yahoo!Stock
-			url = "https://tw.stock.yahoo.com/q/q?s="
-			url += stock_id
-			headers = {
-				'User-Agent': 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
-			}
-			page = requests.get(url, headers = headers).text
-			# crawl pattern
-			crawl_p = '<td align="center" bgcolor="#FFFfff" nowrap>(.*?)</td>'
-			crawl_pat = re.compile(crawl_p)
-			result = crawl_pat.findall(page)	# list
-			trunc_p = '<.*?>'
-			trunc_pat = re.compile(trunc_p)
-			for i in range(len(result)):
-				result[i] = trunc_pat.sub('', result[i])
+			# query model for stock data
 
-			end_price = result[1]
-			buy_price = result[2]
-			sell_price = result[3]
-			total_num = result[4]
-			yesterday_end = result[5]
-			start_price = result[6]
-			high_price = result[7]
-			low_price = result[8]
+			end_price = 
+			buy_price = 
+			sell_price = 
+			total_num = 
+			yesterday_end = 
+			start_price = 
+			high_price = 
+			low_price = 
 			change = round(float(end_price) - float(yesterday_end), 2)
 			stock_info = "詳細內容"
 			info_url = "https://tw.finance.yahoo.com/q/ts?s="
 			info_url += stock_id
 
-			return render(request, 'stock.html', {
+			return render(request, 'trade/stock.html', {
 				'stock_id': stock_id,
 				'current_time': current_time,
 				'end_price': end_price,
@@ -70,11 +55,11 @@ def showStock(request):
 				'info_url': info_url,
 			})
 		else:
-			return redirect(selectStock, permanent = True)
+			return redirect(select_stock_view, permanent = True)
 	else:
-		return redirect(selectStock, permanent = True)
+		return redirect(select_stock_view, permanent = True)
 
-def addTrade(request):
+def add_trade(request):
 	if request.method == 'POST' and 'stock_id' in request.POST:
 		stock_id = request.POST['stock_id']
 		if 'buysell' in request.POST and 'vol' in request.POST and request.POST['vol'] != '':
@@ -83,9 +68,9 @@ def addTrade(request):
 			tpe = pytz.timezone('Asia/Taipei')
 			current_time = tpe.fromutc(utcnow)
 
-			trade.objects.create(player_name = 'sean', trade = request.POST['buysell'], trade_company = stock_id, trade_num = request.POST['vol'], created_at = current_time)
-			return redirect(selectStock, permanent = True)
+			trade.objects.create(player_name = request.user, trade = request.POST['buysell'], trade_company = stock_id, trade_num = request.POST['vol'])
+			return redirect(select_stock_view, permanent = True)
 		else:
 			return redirect('/stock/?stock_id=' + stock_id)
 	else:
-		return redirect(selectStock, permanent = True)
+		return redirect(select_stock_view, permanent = True)

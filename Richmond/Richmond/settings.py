@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 	'index',
 	'trade',
 	'players',
+    'stock',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,6 +85,7 @@ DATABASES = {
     }
 }
 
+AUTH_PROFILE_MODULE = 'players.Profile'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

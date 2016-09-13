@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <title>Project Richmond</title>
+	</head>
+	<body>
+		<h3>登入</h3>
+		<form action="/login/" method="post">
+			{% csrf_token %}
+			<label for="username">名稱</label>
+			<input type="text" name="username" placeholder="請輸入名稱">
+			<br>
+			<label for="password">密碼</label>
+			<input type="password" name="password" placeholder="請輸入密碼">
+			<br>
+			<input type="submit" value="送出">
+		</form>
+		<p>或是<a href="register">註冊</a></p>
+	</body>
+</html>
