@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
-from .models import UserForm
-from .models import ProfileForm
+from django.contrib.auth.forms import UserCreationForm
 
 def login_view(request):
 	return render(request, 'account/login.html')
@@ -17,7 +16,6 @@ def login(request):
 	
 	username = request.POST['username']
 	password = request.POST['password']
-	
 	user = auth.authenticate(username = username, password = password)
 	if user is not None and user.is_active:
 		auth.login(request, user)
@@ -27,13 +25,15 @@ def login(request):
 
 def register(request):
 	if request.method == 'POST':
-		uform = UserForm(request.POST, prefix = "user")
-		pform = ProfileForm(request.POST, prefix = "userprofile")
-		if uform.is_valid() * pform.is_valid():
-			new_user = uform.save()
-			userprofile = pform.save(commit = False)
-			userprofile.user = new_user
-			userprofile.save()
+		uform = UserCreationForm(request.POST)
+		if uform.is_valid():
+			username = request.POST['username']
+			email = request.POST['email']
+			password = request.POST['password1']
+			user = User.objects.create_user(username, email, password)
+			user.save()
 			# perhaps set permissions of the new user
 			return redirect('/accounts/login', permanent = True)
+	else:
+		form = UserCreationForm()
 	return redirect('/accounts/login/register', permanent = True)

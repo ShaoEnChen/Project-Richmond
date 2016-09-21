@@ -85,7 +85,7 @@ DATABASES = {
     }
 }
 
-AUTH_PROFILE_MODULE = 'players.Profile'
+# AUTH_PROFILE_MODULE = 'players.Profile'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

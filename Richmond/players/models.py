@@ -6,20 +6,20 @@ class Profile(models.Model):
 	user = models.OneToOneField(
 		User,
 		on_delete=models.CASCADE,
-		primary_key=True,
+		primary_key=True
 	)
-	email = models.EmailField()
-	assets = models.FloatField(default = 100000.00)
+	assets = models.FloatField(default = 300000.00)
 	exp = models.IntegerField(default = 0)
 	def __str__(self):
 		return "%s's profile" % self.user.username
 
-class UserForm(ModelForm):
-	class Meta:
-		model = User
-		fields = ['username', 'email', 'password', 'first_name', 'last_name']
+	def assets_increase(self, price, vol):
+		assets = self.assets
+		assets += price * vol
+		return assets
 
-class ProfileForm(ModelForm):
-	class Meta:
-		model = Profile
-		exclude = ['user']
+	def assets_decrease(self, price, vol):
+		assets = self.assets
+		if assets >= price * vol:
+			assets -= price * vol
+			return assets

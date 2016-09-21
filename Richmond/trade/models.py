@@ -1,6 +1,6 @@
 from django.db import models
 
-class trade(models.Model):
+class Trade(models.Model):
 	player_name = models.CharField(max_length=100)
 	# buy(b) or sell(s)
 	trade = models.CharField(max_length=1)
@@ -8,4 +8,4 @@ class trade(models.Model):
 	trade_num = models.IntegerField()
 	created_at = models.DateTimeField(auto_now_add=True)
 	def __str__(self):
-		return "%s's trde" % self.player_name
+		return "%s's trade" % self.player_name
