@@ -88,7 +88,8 @@ def add_trade(request):
 				new_assets = request.user.profile.assets_increase(float(price), float(vol))
 			# Update DB Profile
 			# Profile.objects.get(user = request.user).update(assets = new_assets)
-			print(new_assets)
+			request.user.profile.assets = new_assets
+			request.user.profile.save()
 			return redirect(select_stock_view, permanent = True)
 		else:
 			return redirect('/stock/?stock_id=' + stock_id)
