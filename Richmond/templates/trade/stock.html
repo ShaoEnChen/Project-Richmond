@@ -5,7 +5,7 @@
 		<title>Project Richmond</title>
 	</head>
 	<body>
-		<h2>股票代號{{stock_id}}</h2>
+		<h2>股票代號{{ stock_id }}</h2>
 		<div>
 			<table style="border: 1px solid #666;" rules="all" cellpadding="6">
 				<tbody>
@@ -24,35 +24,36 @@
 						<th>個股資料</th>
 					</tr>
 					<tr>
-						<th>{{stock_id}}</th>
-						<th>{{current_time}}</th>
-						<th>{{end_price}}</th>
-						<th>{{buy_price}}</th>
-						<th>{{sell_price}}</th>
-						<th>{{change}}</th>
-						<th>{{total_num}}</th>
-						<th>{{yesterday_end}}</th>
-						<th>{{start_price}}</th>
-						<th>{{high_price}}</th>
-						<th>{{low_price}}</th>
-						<th><a href={{info_url}}>{{stock_info}}</a></th>
+						<td>{{ stock_id }}</td>
+						<td>{{ current_time }}</td>
+						<td>{{ end_price }}</td>
+						<td>{{ buy_price }}</td>
+						<td>{{ sell_price }}</td>
+						<td>{{ change }}</td>
+						<td>{{ total_num }}</td>
+						<td>{{ yesterday_end }}</td>
+						<td>{{ start_price }}</td>
+						<td>{{ high_price }}</td>
+						<td>{{ low_price }}</td>
+						<td><a href={{ info_url }}>{{ stock_info }}</a></td>
 					</tr>
 					<form action="/addTrade/" method="post">
-						<input type="hidden" name="stock_id" value={{stock_id}}>
+						<input type="hidden" name="stock_id" value={{ stock_id }}>
 						<tr>
 							<th>下單</th>
 							<td colspan="11">
 								<input type="radio" name="buysell" value="b">買
 								<input type="radio" name="buysell" value="s">賣
 								<input type="text" name="vol" size="5">張
-								<input type="hidden" name="price" value={{end_price}}>
+								<input type="hidden" name="price" value={{ end_price }}>
 								<input type="submit" value="送出">
 							</td>
 						</tr>
 					</form>
 				</tbody>
 			</table>
-			<h4>資料來源：<a href={{url}}>Yahoo!股市</a></h4>
+			<h4>資料來源：<a href={{ url }}>Yahoo!股市</a></h4>
 		</div>
+		<a href="/">回首頁</a>
 	</body>
 </html>

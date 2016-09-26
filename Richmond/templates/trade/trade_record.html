@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <title>Project Richmond</title>
+	</head>
+	<body>
+		<h3>{{ username }} 的交易紀錄</h3>
+		<table>
+			<tr>
+				<th>交易</th>
+				<th>台股代號</th>
+				<th>數量</th>
+				<th>交易時間</th>
+			</tr>
+			{% for record in record_list %}
+				<tr>
+					{% if record.trade == 'b' %}
+						<td>買</td>
+					{% else %}
+						<td>賣</td>
+					{% endif %}
+					<td>{{ record.trade_company }}</td>
+					<td>{{ record.trade_num }}</td>
+					<td>{{ record.created_at }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<a href="/">回首頁</a>
+	</body>
+</html>

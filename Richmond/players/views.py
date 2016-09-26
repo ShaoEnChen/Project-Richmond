@@ -40,3 +40,9 @@ def register(request):
 	else:
 		form = UserCreationForm()
 	return redirect('/accounts/login/register', permanent = True)
+
+def user_view(request):
+	user_list = User.objects.all()
+	return render(request, 'account/user_list.html', {
+		'user_list': user_list
+	})

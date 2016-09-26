@@ -60,7 +60,7 @@ def stock_view(request):
 				'low_price': query_stock.low_price,
 				'stock_info': stock_info,
 				'url': url,
-				'info_url': info_url,
+				'info_url': info_url
 			})
 		else:
 			return redirect(select_stock_view, permanent = True)
@@ -87,7 +87,6 @@ def add_trade(request):
 			else:	# sell
 				new_assets = request.user.profile.assets_increase(float(price), float(vol))
 			# Update DB Profile
-			# Profile.objects.get(user = request.user).update(assets = new_assets)
 			request.user.profile.assets = new_assets
 			request.user.profile.save()
 			return redirect(select_stock_view, permanent = True)
@@ -95,3 +94,15 @@ def add_trade(request):
 			return redirect('/stock/?stock_id=' + stock_id)
 	else:
 		return redirect(select_stock_view, permanent = True)
+
+def trade_record_view(request):
+	username = request.user.username
+	query = "SELECT * FROM trade_trade WHERE player_name = "
+	query += "'"
+	query += username
+	query += "'"
+	user_records = Trade.objects.raw(query)
+	return render(request, 'trade/trade_record.html', {
+		'username': username,
+		'record_list': user_records
+	})

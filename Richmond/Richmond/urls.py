@@ -16,8 +16,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 # custom
 from index.views import index_view
-from trade.views import select_stock_view, stock_view, add_trade
-from players.views import login_view, login, register_view, register
+from trade.views import select_stock_view, stock_view, add_trade, trade_record_view
+from players.views import login_view, login, register_view, register, user_view
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
@@ -26,8 +26,10 @@ urlpatterns = [
 	url(r'^stock/$', stock_view),
 	url(r'^addTrade/$', add_trade),
 	url(r'^accounts/login/$', login_view),
-	url(r'^accounts/login/register$', register_view),
+	url(r'^accounts/login/register/$', register_view),
 	url(r'^login/$', login),
 	url(r'^register/$', register),
 	url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'next_page': '/accounts/login'}),
+	url(r'^tradeRecord/$', trade_record_view),
+	url(r'^userList/$', user_view)
 ]
