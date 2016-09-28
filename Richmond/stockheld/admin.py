@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Stockheld
+from .models import Holding_Stock
 
-admin.site.register(Stockheld)
+admin.site.register(Holding_Stock)

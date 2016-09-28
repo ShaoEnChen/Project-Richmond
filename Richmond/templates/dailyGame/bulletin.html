@@ -5,6 +5,22 @@
 	  <title>Project Richmond</title>
 	</head>
 	<body>
-		
+		<h4>開放插花外戰</h4>
+		<table>
+			<tr>
+				<th>遊戲名稱</th>
+			</tr>
+			{% for game in game_list %}
+				{% if game.is_active == True %}
+				<tr>
+					<td>{{ game.title }}</td>
+					<td>
+						<a href="#">參加</a>
+					</td>
+				</tr>
+				{% endif %}
+			{% endfor %}
+		</table>
+		<a href="/">回首頁</a>
 	</body>
 </html>
