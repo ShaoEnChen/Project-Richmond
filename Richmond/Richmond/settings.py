@@ -37,11 +37,18 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
 	'index',
 	'trade',
 	'players',
+    'cronjob',
     'stock',
+    'dailyGame',
 )
+
+CRONJOBS = [
+    ('*/5 9-14 * * 1-5', 'cronjob.crawler.crawl')
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

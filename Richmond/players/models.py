@@ -10,6 +10,8 @@ class Profile(models.Model):
 	)
 	assets = models.FloatField(default = 300000.00)
 	exp = models.IntegerField(default = 0)
+	is_in_daily_game = models.BooleanField(default = False)
+	
 	def __str__(self):
 		return "%s's profile" % self.user.username
 
