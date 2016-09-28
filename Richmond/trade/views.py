@@ -4,6 +4,7 @@ from datetime import datetime
 from players.models import Profile
 from stock.models import Stock
 from .models import Trade
+from cronjob.crawler import crawl
 import re # REGEX
 import pytz # time
 import requests

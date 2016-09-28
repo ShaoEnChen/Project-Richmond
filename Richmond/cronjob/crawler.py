@@ -1,5 +1,6 @@
 from stock.models import Stock
 from .models import Cron_Job_Log
+import logging
 import requests
 import re
 

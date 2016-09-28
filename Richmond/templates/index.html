@@ -8,7 +8,7 @@
 		<h2>首頁</h2>
 		{% if request.user.is_authenticated %}
 			<h4>您好，{{ request.user }}</h4>
-			<h5>目前共有資產 {{ user.profile.assets }} 元</h5>
+			<h5>目前共有資產 {{ request.user.profile.assets }} 元</h5>
 			{% if request.user.is_superuser %}
 				<a href="admin">管理</a>
 				<br>
