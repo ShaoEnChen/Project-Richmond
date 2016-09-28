@@ -6,21 +6,30 @@
 	</head>
 	<body>
 		<h4>開放插花外戰</h4>
-		<table>
-			<tr>
-				<th>遊戲名稱</th>
-			</tr>
-			{% for game in game_list %}
-				{% if game.is_active == True %}
+		{% if game != None %}
+			<table>
+				<tr>
+					<th>名稱</th>
+					<th>報名費</th>
+				</tr>
 				<tr>
 					<td>{{ game.title }}</td>
+					<td>{{ game.cost }}</td>
 					<td>
-						<a href="#">參加</a>
+						{% if request.user.profile.is_in_daily_game == False %}
+							<form action="/joinDaily/" method="post">
+								<input type="hidden" name="cost" value={{ game.cost }}>
+								<input type="submit" value="參加">
+							</form>
+						{% else %}
+							<a href="/dailyPlayground/">進入遊戲</a>
+						{% endif %}
 					</td>
 				</tr>
-				{% endif %}
-			{% endfor %}
-		</table>
+			</table>
+		{% else %}
+			<p>目前暫無開放插花外戰！</p>
+		{% endif %}
 		<a href="/">回首頁</a>
 	</body>
 </html>

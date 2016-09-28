@@ -16,12 +16,14 @@ class Profile(models.Model):
 		return "%s's profile" % self.user.username
 
 	def assets_increase(self, price, vol):
-		assets = self.assets
-		assets += price * vol
-		return assets
+		self.assets += price * vol
+		self.save()
+		return True
 
 	def assets_decrease(self, price, vol):
-		assets = self.assets
-		if assets >= price * vol:
-			assets -= price * vol
-			return assets
+		if self.assets >= price * vol:
+			self.assets -= price * vol
+			self.save()
+			return True
+		else:
+			return False

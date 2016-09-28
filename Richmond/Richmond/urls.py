@@ -18,7 +18,7 @@ from django.contrib import admin
 from index.views import index_view
 from trade.views import select_stock_view, stock_view, add_trade, trade_record_view
 from players.views import login_view, login, register_view, register, user_view
-from dailyGame.views import daily_game_view
+from dailyGame.views import daily_game_view, join_game, playground_view
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
@@ -33,5 +33,7 @@ urlpatterns = [
 	url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'next_page': '/accounts/login'}),
 	url(r'^tradeRecord/$', trade_record_view),
 	url(r'^userList/$', user_view),
-	url(r'^dailyGame/$', daily_game_view)
+	url(r'^dailyGame/$', daily_game_view),
+	url(r'^joinDaily/$', join_game),
+	url(r'^dailyPlayground/$', playground_view)
 ]

@@ -29,13 +29,8 @@ def stock_view(request):
 			# query model for stock data
 			query = "SELECT * FROM stock_stock WHERE stock_id = "
 			query += stock_id
-			results = Stock.objects.raw(query)
-			
-			# get query_size
-			query_size = 0
-			for result in results:
-				query_size += 1
-			query_stock = results[query_size-1]
+			query += " ORDER BY id DESC LIMIT 1;"
+			query_stock = Stock.objects.raw(query)[0]
 			
 			end_price = query_stock.end_price
 			yesterday_end = query_stock.yesterday_end
@@ -83,12 +78,11 @@ def add_trade(request):
 			Trade.objects.create(player_name = request.user, trade = bs, trade_company = stock_id, trade_num = vol)
 			# Assets increase/decrease due to transactions
 			if bs == 'b':	# buy
-				new_assets = request.user.profile.assets_decrease(float(price), float(vol))
+				is_success = request.user.profile.assets_decrease(float(price), float(vol))
 			else:	# sell
-				new_assets = request.user.profile.assets_increase(float(price), float(vol))
-			# Update DB Profile
-			request.user.profile.assets = new_assets
-			request.user.profile.save()
+				is_success = request.user.profile.assets_increase(float(price), float(vol))
+			# if not is_success:
+			#	some message	
 			return redirect(select_stock_view, permanent = True)
 		else:
 			return redirect('/stock/?stock_id=' + stock_id)
