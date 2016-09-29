@@ -79,8 +79,10 @@ def add_trade(request):
 			# Assets increase/decrease due to transactions
 			if bs == 'b':	# buy
 				is_success = request.user.profile.assets_decrease(float(price), float(vol))
+				hstock_increase(float(vol))
 			else:	# sell
 				is_success = request.user.profile.assets_increase(float(price), float(vol))
+				hstock_decrease(float(vol))
 			# if not is_success:
 			#	some message	
 			return redirect(select_stock_view, permanent = True)
