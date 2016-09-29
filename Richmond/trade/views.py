@@ -70,9 +70,7 @@ def add_trade(request):
 			vol = request.POST['vol']
 			price = request.POST['price']
 			# get current time in Taipei
-			utcnow = datetime.utcnow()
-			tpe = pytz.timezone('Asia/Taipei')
-			current_time = tpe.fromutc(utcnow)
+			current_time = datetime.now()
 
 			# Create trade record
 			Trade.objects.create(player_name = request.user, trade = bs, trade_company = stock_id, trade_num = vol)

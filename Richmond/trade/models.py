@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 class Trade(models.Model):
@@ -6,6 +7,6 @@ class Trade(models.Model):
 	trade = models.CharField(max_length=1)
 	trade_company = models.CharField(max_length=5)
 	trade_num = models.IntegerField()
-	created_at = models.DateTimeField(auto_now_add=True)
+	created_at = models.DateTimeField(default=datetime.now())
 	def __str__(self):
 		return "%s's trade" % self.player_name
