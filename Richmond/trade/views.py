@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 from players.models import Profile
 from stock.models import Stock
+from stockgeld.models import Holding_Stock
 from .models import Trade
 from cronjob.crawler import crawl
 import re # REGEX
