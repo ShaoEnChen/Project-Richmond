@@ -9,4 +9,4 @@ class Trade(models.Model):
 	trade_num = models.IntegerField()
 	created_at = models.DateTimeField(default=datetime.now())
 	def __str__(self):
-		return "%s's trade %s" % (self.player_name, self.created_at)
+		return "%s's trade" % self.player_name
