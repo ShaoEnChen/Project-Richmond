@@ -8,5 +8,5 @@ class Trade(models.Model):
 	trade_company = models.CharField(max_length=5)
 	trade_num = models.IntegerField()
 	created_at = models.DateTimeField(default=datetime.now())
-	def __str__(self):
+	def __unicode__(self):
 		return "%s's trade" % self.player_name

@@ -5,6 +5,56 @@
 	  <title>Project Richmond</title>
 	</head>
 	<body>
-		<p>Game!</p>
+		<p>你現在有 {{ request.user.profile.assets }} 元</p>
+		<h2>台積電大亂鬥</h2>
+		<div>
+			<table style="border: 1px solid #666;" rules="all" cellpadding="6">
+				<tbody>
+					<tr>
+						<th>股票代號</th>
+						<th>時間</th>
+						<th>成交</th>
+						<th>買進</th>
+						<th>賣出</th>
+						<th>漲跌</th>
+						<th>張數</th>
+						<th>昨收</th>
+						<th>開盤</th>
+						<th>最高</th>
+						<th>最低</th>
+						<th>個股資料</th>
+					</tr>
+					<tr>
+						<td>2330</td>
+						<td>{{ current_time }}</td>
+						<td>{{ stock.end_price }}</td>
+						<td>{{ stock.buy_price }}</td>
+						<td>{{ stock.sell_price }}</td>
+						<td>{{ change }}</td>
+						<td>{{ stock.total_num }}</td>
+						<td>{{ stock.yesterday_end }}</td>
+						<td>{{ stock.start_price }}</td>
+						<td>{{ stock.high_price }}</td>
+						<td>{{ stock.low_price }}</td>
+						<td><a href={{ info_url }}>詳細資料</a></td>
+					</tr>
+					<tr>
+						<th>下單</th>
+						<td colspan="11">
+							<form action="/addTrade/" method="post">
+								<input type="hidden" name="stock_id" value="2330">
+								<input type="hidden" name="price" value={{ stock.end_price }}>
+								<input type="radio" name="buysell" value="b">買
+								<input type="radio" name="buysell" value="s">賣
+								<input type="text" name="vol" size="5">張
+								<input type="submit" value="送出">
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<h4>資料來源：<a href={{ url }}>Yahoo!股市</a></h4>
+		</div>
+		<a href="/">回首頁</a>
 	</body>
 </html>

@@ -6,13 +6,12 @@ class Profile(models.Model):
 	user = models.OneToOneField(
 		User,
 		on_delete=models.CASCADE,
-		primary_key=True
+		primary_key=True,
 	)
 	assets = models.FloatField(default = 300000.00)
 	exp = models.IntegerField(default = 0)
 	is_in_daily_game = models.BooleanField(default = False)
-	
-	def __str__(self):
+	def __unicode__(self):
 		return "%s's profile" % self.user.username
 
 	def assets_increase(self, price, vol):

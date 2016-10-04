@@ -10,8 +10,8 @@ class Cron_Job_Log(models.Model):
 	title = models.CharField(max_length=48, default='', verbose_name=_('cronjob_title'))
 	exec_time = models.DateTimeField(default=datetime.now(), verbose_name=_('cronjob_exec_time'))
 	status_code = models.CharField(default='1', max_length=1, choices=STATUS_CHOICES, verbose_name=_('cronjob_status'))
-	def __str__(self):
-		return "%s" % self.title
+	def __unicode__(self):
+		return self.title
 	def success(self):
 	    self.status_code = '1'
 	def failed(self):

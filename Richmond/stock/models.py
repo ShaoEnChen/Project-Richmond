@@ -13,4 +13,4 @@ class Stock(models.Model):
 	high_price = models.CharField(max_length=10)
 	low_price = models.CharField(max_length=10)
 	def __str__(self):
-		return "%s" % self.stock_id
+		return self.stock_id

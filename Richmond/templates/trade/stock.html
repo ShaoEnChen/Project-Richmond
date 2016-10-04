@@ -26,30 +26,30 @@
 					<tr>
 						<td>{{ stock_id }}</td>
 						<td>{{ current_time }}</td>
-						<td>{{ end_price }}</td>
-						<td>{{ buy_price }}</td>
-						<td>{{ sell_price }}</td>
+						<td>{{ stock.end_price }}</td>
+						<td>{{ stock.buy_price }}</td>
+						<td>{{ stock.sell_price }}</td>
 						<td>{{ change }}</td>
-						<td>{{ total_num }}</td>
-						<td>{{ yesterday_end }}</td>
-						<td>{{ start_price }}</td>
-						<td>{{ high_price }}</td>
-						<td>{{ low_price }}</td>
-						<td><a href={{ info_url }}>{{ stock_info }}</a></td>
+						<td>{{ stock.total_num }}</td>
+						<td>{{ stock.yesterday_end }}</td>
+						<td>{{ stock.start_price }}</td>
+						<td>{{ stock.high_price }}</td>
+						<td>{{ stock.low_price }}</td>
+						<td><a href={{ info_url }}>詳細資料</a></td>
 					</tr>
-					<form action="/addTrade/" method="post">
-						<input type="hidden" name="stock_id" value={{ stock_id }}>
-						<tr>
-							<th>下單</th>
-							<td colspan="11">
+					<tr>
+						<th>下單</th>
+						<td colspan="11">
+							<form action="/addTrade/" method="post">
+								<input type="hidden" name="stock_id" value={{ stock_id }}>
+								<input type="hidden" name="price" value={{ stock.end_price }}>
 								<input type="radio" name="buysell" value="b">買
 								<input type="radio" name="buysell" value="s">賣
 								<input type="text" name="vol" size="5">張
-								<input type="hidden" name="price" value={{ end_price }}>
 								<input type="submit" value="送出">
-							</td>
-						</tr>
-					</form>
+							</form>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<h4>資料來源：<a href={{ url }}>Yahoo!股市</a></h4>

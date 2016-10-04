@@ -10,10 +10,12 @@
 			<table>
 				<tr>
 					<th>名稱</th>
+					<th>描述</th>
 					<th>報名費</th>
 				</tr>
 				<tr>
 					<td>{{ game.title }}</td>
+					<td>{{ game.desc }}</td>
 					<td>{{ game.cost }}</td>
 					<td>
 						{% if request.user.profile.is_in_daily_game == False %}
