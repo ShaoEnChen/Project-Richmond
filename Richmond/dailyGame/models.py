@@ -7,3 +7,7 @@ class Game(models.Model):
 	is_active = models.BooleanField(default=True)
 	def __unicode__(self):
 		return "game %s" % self.title
+
+# class JoinedPlayer
+
+# class GameRecord

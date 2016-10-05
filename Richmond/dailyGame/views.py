@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from datetime import datetime
-from .models import Game
+from .models import Game, GameRecord
 from stock.models import Stock
 
 def daily_game_view(request):
@@ -50,3 +50,29 @@ def playground_view(request):
 		})
 	except:
 		return redirect(daily_game_view, permanent = True)
+
+def add_game_record(request):
+	stock_id = 2330
+	try:
+		bs = request.POST['buysell']
+		vol = int(request.POST['vol'])
+		price = request.POST['price']
+		# get current time in Taipei
+		current_time = datetime.now()
+
+		# Assets increase/decrease due to transactions
+		if bs == 'b':	# buy
+			is_success = request.user.profile.assets_decrease(float(price), vol)
+			# hstock_increase(float(vol))
+		else:	# sell
+			is_success = request.user.profile.assets_increase(float(price), vol)
+			# hstock_decrease(float(vol))
+		if is_success:
+			# Create record
+			GameRecord.objects.create(player_name = request.user.username, trade = bs, trade_company = stock_id, trade_num = vol)
+		#	some success message
+		# if not is_success:
+		#	some fail message
+		return redirect(playground_view, permanent = True)
+	except:
+		return redirect(playground_view, permanent = True)

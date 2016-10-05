@@ -18,7 +18,7 @@ from django.contrib import admin
 from index.views import index_view
 from trade.views import select_stock_view, stock_view, add_trade, trade_record_view
 from players.views import login_view, login, register_view, register, user_view
-from dailyGame.views import daily_game_view, join_game, playground_view
+from dailyGame.views import daily_game_view, join_game, playground_view, add_game_record
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
@@ -35,5 +35,6 @@ urlpatterns = [
 	url(r'^userList/$', user_view),
 	url(r'^dailyGame/$', daily_game_view),
 	url(r'^joinDaily/$', join_game),
-	url(r'^dailyPlayground/$', playground_view)
+	url(r'^dailyPlayground/$', playground_view),
+	url(r'^addGameRecord/$', add_game_record)
 ]
