@@ -79,14 +79,16 @@ def add_trade(request):
 
 	# Assets increase/decrease due to transactions
 	if bs == 'b':	# buy
+		is_buy = True
 		is_success = request.user.profile.assets_decrease(float(price), vol)
 		# hstock_increase(float(vol))
 	else:	# sell
+		is_buy = False
 		is_success = request.user.profile.assets_increase(float(price), vol)
 		# hstock_decrease(float(vol))
 	if is_success:
 		# Create trade record
-		Trade.objects.create(player_name = request.user.username, trade = bs, trade_company = stock_id, trade_num = vol)
+		Trade.objects.create(player_name = request.user.username, is_buy = is_buy, trade_company = stock_id, trade_num = vol)
 	#	some success message
 	# if not is_success:
 	#	some fail message

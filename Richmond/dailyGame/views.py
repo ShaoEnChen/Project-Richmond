@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from datetime import datetime
-from .models import Game, GameRecord
+from .models import Game, JoinedPlayer, GameRecord
 from stock.models import Stock
 
 def daily_game_view(request):
@@ -18,6 +18,7 @@ def join_game(request):
 		if request.user.profile.is_in_daily_game == False and request.user.profile.assets_decrease(game_cost, 1):
 			request.user.profile.is_in_daily_game = True
 			request.user.profile.save()
+			JoinedPlayer.objects.create(player = request.user, init_assets = request.user.profile.assets)
 			return redirect(playground_view, permanent = True)
 		else:
 			return redirect('/dailyGame/', permanent = True)
@@ -62,14 +63,16 @@ def add_game_record(request):
 
 		# Assets increase/decrease due to transactions
 		if bs == 'b':	# buy
+			is_buy = True
 			is_success = request.user.profile.assets_decrease(float(price), vol)
 			# hstock_increase(float(vol))
 		else:	# sell
+			is_buy = False
 			is_success = request.user.profile.assets_increase(float(price), vol)
 			# hstock_decrease(float(vol))
 		if is_success:
 			# Create record
-			GameRecord.objects.create(player_name = request.user.username, trade = bs, trade_company = stock_id, trade_num = vol)
+			GameRecord.objects.create(player = request.user, is_buy = is_buy, trade_num = vol)
 		#	some success message
 		# if not is_success:
 		#	some fail message
