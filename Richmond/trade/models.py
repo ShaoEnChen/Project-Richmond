@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from django.db import models
 
 class Trade(models.Model):
@@ -7,6 +7,6 @@ class Trade(models.Model):
 	is_buy = models.BooleanField(default=True)
 	trade_company = models.CharField(max_length=5)
 	trade_num = models.IntegerField()
-	created_at = models.DateTimeField(default=datetime.now())
+	created_at = models.DateTimeField(default=timezone.now)
 	def __str__(self):
 		return "%s's trade" % self.player_name

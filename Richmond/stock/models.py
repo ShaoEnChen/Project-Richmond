@@ -1,9 +1,9 @@
-from datetime import datetime
+from django.utils import timezone
 from django.db import models
 
 class Stock(models.Model):
 	stock_id = models.CharField(max_length=10)
-	time = models.DateTimeField(default=datetime.now())
+	time = models.DateTimeField(default=timezone.now)
 	end_price = models.CharField(max_length=10)
 	buy_price = models.CharField(max_length=10)
 	sell_price = models.CharField(max_length=10)
@@ -14,3 +14,11 @@ class Stock(models.Model):
 	low_price = models.CharField(max_length=10)
 	def __str__(self):
 		return self.stock_id
+
+	def getNewestStock(stock_id):
+		try:
+			stock = Stock.objects.filter(stock_id__exact=stock_id)[0]
+		except:
+			stock = None
+		finally:
+			return stock

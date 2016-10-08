@@ -15,7 +15,7 @@
 			</tr>
 			{% for record in record_list %}
 				<tr>
-					{% if record.trade == 'b' %}
+					{% if record.is_buy == True %}
 						<td>買</td>
 					{% else %}
 						<td>賣</td>

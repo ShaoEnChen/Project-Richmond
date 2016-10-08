@@ -1,13 +1,15 @@
 from django.db import models
+from django.utils import timezone
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
 	user = models.OneToOneField(
 		User,
-		on_delete=models.CASCADE,
-		primary_key=True,
+		on_delete = models.CASCADE,
+		primary_key = True,
 	)
+	created_at = models.DateTimeField(default = timezone.now)
 	assets = models.FloatField(default = 300000.00)
 	exp = models.IntegerField(default = 0)
 	is_in_daily_game = models.BooleanField(default = False)

@@ -7,6 +7,7 @@
 	<body>
 		<p>你現在有 {{ request.user.profile.assets }} 元</p>
 		<h2>台積電大亂鬥</h2>
+		<h4>{{ msg }}</h4>
 		<div>
 			<table style="border: 1px solid #666;" rules="all" cellpadding="6">
 				<tbody>
@@ -36,7 +37,7 @@
 						<td>{{ stock.start_price }}</td>
 						<td>{{ stock.high_price }}</td>
 						<td>{{ stock.low_price }}</td>
-						<td><a href={{ info_url }}>詳細資料</a></td>
+						<td><a href="https://tw.finance.yahoo.com/q/ts?s=2330">詳細資料</a></td>
 					</tr>
 					<tr>
 						<th>下單</th>
@@ -53,7 +54,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<h4>資料來源：<a href={{ url }}>Yahoo!股市</a></h4>
+			<h4>資料來源：<a href="https://tw.stock.yahoo.com/q/q?s=2330">Yahoo!股市</a></h4>
 		</div>
 		<a href="/">回首頁</a>
 	</body>
