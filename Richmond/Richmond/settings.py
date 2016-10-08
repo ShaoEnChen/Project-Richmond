@@ -87,8 +87,16 @@ WSGI_APPLICATION = 'Richmond.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'RICHMOND',
+        'USER': 'sean',
+        'PASSWORD': 'ntuim2016',
+        'HOST': '',
+        'PORT': '',
+        # 'HOST': '52.43.208.33',
+        # 'PORT': '8000',
     }
 }
 
