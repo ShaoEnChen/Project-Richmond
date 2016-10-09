@@ -62,12 +62,12 @@ def add_trade(request):
 	except:
 		stock_id = None
 	
-	# get stock info
-	try:
+	# get record info
+	if 'buysell' in request.POST and 'vol' in request.POST and 'price' in request.POST:
 		bs = request.POST['buysell']
 		vol = int(request.POST['vol'])
-		price = request.POST['price']
-	except:
+		price = float(request.POST['price'])
+	else:
 		return redirect('/stock/?stock_id=' + stock_id, permanent = True)
 
 	try:

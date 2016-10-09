@@ -60,39 +60,44 @@ def playground_view(request):
 def add_game_record(request):
 	stock_id = "2330"
 
-	# get record info
-	try:
-		bs = request.POST['buysell']
-		vol = int(request.POST['vol'])
-		price = request.POST['price']
-	except:
-		bs = None
-		vol = 0
-		price = 0
-
-	# create player's game record
-	try:
-		current_user = request.user
-
-		# Assets increase/decrease due to transactions
-		if bs == 'b':	# buy
-			is_buy = True
-			is_success = current_user.profile.assets_decrease(float(price), vol)
-			# hstock_increase(float(vol))
-		elif bs == 's':	# sell
-			is_buy = False
-			is_success = current_user.profile.assets_increase(float(price), vol)
-			# hstock_decrease(float(vol))
+	if request.method = 'POST':
+		# get record info
+		if 'buysell' in request.POST:
+			bs = request.POST['buysell']
 		else:
-			is_success = False
+			bs = None
+		if 'vol' in request.POST:
+			vol = int(request.POST['vol'])
+		else:
+			vol = 0
+		if 'price' in request.POST:
+			price = float(request.POST['price'])
+		else:
+			price = 0
 
-		if is_success:
-			# Create record
-			GameRecord.objects.create(player = request.user, is_buy = is_buy, trade_num = vol)
-		#	some success message
-		# if not is_success:
-		#	some fail message
-	except:
-		pass
+		# create player's game record
+		try:
+			current_user = request.user
+
+			# Assets increase/decrease due to transactions
+			if bs == 'b':	# buy
+				is_buy = True
+				is_success = current_user.profile.assets_decrease(price, vol)
+				# hstock_increase(float(vol))
+			elif bs == 's':	# sell
+				is_buy = False
+				is_success = current_user.profile.assets_increase(price, vol)
+				# hstock_decrease(float(vol))
+			else:
+				is_success = False
+
+			if is_success:
+				# Create record
+				GameRecord.objects.create(player = request.user, is_buy = is_buy, trade_num = vol)
+			#	some success message
+			# if not is_success:
+			#	some fail message
+		except:
+			pass
 
 	return redirect(playground_view, permanent = True)
