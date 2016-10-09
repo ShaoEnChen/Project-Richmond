@@ -21,9 +21,9 @@ def select_stock_view(request):
 
 def stock_view(request):
 	msg = ''
-	try:
+	if request.method == 'GET' and 'stock_id' in request.GET:
 		stock_id = request.GET['stock_id']
-	except:
+	else:
 		stock_id = None
 	
 	# access stock from db
@@ -57,9 +57,9 @@ def stock_view(request):
 
 def add_trade(request):
 	# get stock id
-	try:
+	if request.method == 'POST' and 'stock_id' in request.POST:
 		stock_id = request.POST['stock_id']
-	except:
+	else:
 		stock_id = None
 	
 	# get record info

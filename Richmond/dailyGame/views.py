@@ -59,8 +59,7 @@ def playground_view(request):
 
 def add_game_record(request):
 	stock_id = "2330"
-
-	if request.method = 'POST':
+	if request.method == 'POST':
 		# get record info
 		if 'buysell' in request.POST:
 			bs = request.POST['buysell']
