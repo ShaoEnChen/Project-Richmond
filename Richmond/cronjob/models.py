@@ -1,5 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
+# from django.utils import timezone
+from datetime import datetime
 from django.db import models
 
 class Cron_Job_Log(models.Model):
@@ -8,7 +9,7 @@ class Cron_Job_Log(models.Model):
 	    ('2', _('cron_job_failed')),
 	)
 	title = models.CharField(max_length = 48)
-	exec_time = models.DateTimeField(default = timezone.now)
+	exec_time = models.DateTimeField(default = datetime.now())
 	status_code = models.CharField(max_length = 1, choices = STATUS_CHOICES)
 	def __str__(self):
 		return self.title

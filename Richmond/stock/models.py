@@ -1,9 +1,10 @@
-from django.utils import timezone
+# from django.utils import timezone
+from datetime import datetime
 from django.db import models
 
 class Stock(models.Model):
 	stock_id = models.CharField(max_length=10)
-	time = models.DateTimeField(default=timezone.now)
+	time = models.DateTimeField(default=datetime.now())
 	end_price = models.CharField(max_length=10)
 	buy_price = models.CharField(max_length=10)
 	sell_price = models.CharField(max_length=10)
