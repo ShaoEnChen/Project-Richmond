@@ -5,10 +5,10 @@ from players.models import Profile
 from stock.models import Stock
 # from stockheld.models import Holding_Stock
 from .models import Trade
-from cronjob.crawler import crawl
-import re # REGEX
-import pytz # time
-import requests
+# from cronjob.crawler import crawl
+# import re # REGEX
+# import pytz # time
+# import requests
 
 '''
 # REGEX to check GET
