@@ -12,7 +12,7 @@ class Cron_Job_Log(models.Model):
 	exec_time = models.DateTimeField(default = datetime.now())
 	status_code = models.CharField(max_length = 1, choices = STATUS_CHOICES)
 	def __str__(self):
-		return self.title
+		return "%s %s" % (self.title, self.status_code)
 	def success(self):
 	    self.status_code = '1'
 	def failed(self):
