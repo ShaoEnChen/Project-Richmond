@@ -2,5 +2,4 @@
 django_venv/
 Richmond/db.sqlite3
 sources/
-Richmond/__pycache__/
-Richmond/*/__pycache__/
+*.pyc
