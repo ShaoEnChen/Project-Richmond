@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 from players.models import Profile
 from stock.models import Stock
-# from stockheld.models import Holding_Stock
+from stockheld.models import Holding_Stock
 from .models import Trade
 # from cronjob.crawler import crawl
 # import re # REGEX
@@ -75,11 +75,13 @@ def add_trade(request):
 		if bs == 'b':	# buy
 			is_buy = True
 			is_success = request.user.profile.assets_decrease(float(price), vol)
-			# hstock_increase(float(vol))
+			holding = Holding_Stock.objects.filter(player_name = request.user.username and s_id = stock_id)
+			holding.hstock_increase(vol)
 		elif bs == 's':	# sell
 			is_buy = False
 			is_success = request.user.profile.assets_increase(float(price), vol)
-			# hstock_decrease(float(vol))
+			holding = Holding_Stock.objects.filter(player_name = request.user.username and s_id = stock_id)
+			holding.hstock_decrease(vol)
 		else:
 			is_success = False
 
