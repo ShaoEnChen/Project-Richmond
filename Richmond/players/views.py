@@ -5,24 +5,41 @@ from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 from players.models import Profile
 
-def login_view(request):
-	return render(request, 'account/login.html')
-
 def register_view(request):
 	return render(request, 'account/register.html')
 
 def login(request):
 	if request.user.is_authenticated():
 		return redirect('/', permanent = True)
-	
-	username = request.POST['username']
-	password = request.POST['password']
-	user = auth.authenticate(username = username, password = password)
-	if user is not None and user.is_active:
-		auth.login(request, user)
-		return redirect('/', permanent = True)
-	else:
-		return redirect('/accounts/login', permanent = True)
+
+	msg = ''
+
+	if request.method == 'POST':
+		try:
+			username = request.POST['username']
+			password = request.POST['password']
+			if not username:
+				msg += '請輸入帳號，'
+			if not password:
+				msg += '請輸入密碼，'
+			user = auth.authenticate(username = username, password = password)
+		except:
+			msg = '登入失敗，請輸入英文或數字！'
+			return render(request, 'account/login.html', {
+				'msg': msg
+			})
+		if user is not None and user.is_active:
+			auth.login(request, user)
+			return redirect('/', permanent = True)
+		else:
+			msg += '登入失敗！'
+			return render(request, 'account/login.html', {
+				'msg': msg
+			})
+
+	return render(request, 'account/login.html', {
+		'msg': msg
+	})
 
 def register(request):
 	if request.method == 'POST':
@@ -42,7 +59,7 @@ def register(request):
 	return redirect('/accounts/login/register', permanent = True)
 
 def user_view(request):
-	user_list = User.objects.all()
+	user_list = User.objects.all().exclude(username__exact = request.user.username)
 	return render(request, 'account/user_list.html', {
 		'user_list': user_list
 	})

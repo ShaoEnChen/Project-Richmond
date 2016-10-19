@@ -16,6 +16,7 @@
 					<td>{{ user.username }}</td>
 					<td>{{ user.email }}</td>
 					<td>{{ user.profile.assets }}</td>
+					<td><a href="/invite_pk?invitee={{ user.username }}">邀請單挑</a></td>
 				</tr>
 			{% endfor %}
 		</table>

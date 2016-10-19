@@ -1,3 +1,4 @@
 .DS_Store
 django_venv/
 Richmond/db.sqlite3
+sources/
