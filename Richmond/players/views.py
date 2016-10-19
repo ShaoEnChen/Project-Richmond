@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 from players.models import Profile
+from stockheld.models import Holding_Stock
 
 def login_view(request):
 	return render(request, 'account/login.html')
@@ -39,6 +40,15 @@ def register(request):
 			return redirect('/accounts/login', permanent = True)
 	else:
 		form = UserCreationForm()
+
+	#Create empty holding stock list
+	stocklist = ['1101', '1102', '1216', '1301', '1303', '1326', '1402', '1722', '2002', '2105', '2201', '2207', '2301', '2303', '2308', '2311', '2317', '2324', '2325', '2330', '2347', '2353', '2354', '2357', '2382', '2409', '2412', '2454', '2474', '2498', '2801', '2880', '2881', '2882', '2883', '2885', '2886', '2890', '2891', '2892', '2912', '3008', '3045', '3231', '3481', '3673', '4904', '5880', '6505'] 
+	for stock_id in stocklist
+		Holding_Stock.objects.create(
+			player_name = request.POST['username']
+			s_id = stock_id
+		)
+
 	return redirect('/accounts/login/register', permanent = True)
 
 def user_view(request):
