@@ -21,8 +21,8 @@ class Notification(models.Model):
 	def __str__(self):
 		return "%s to %s" % (self.n_from, self.n_to)
 
-	def get_invite_pk_content(m_from):
-		INVITE_TO_PK = '[鐵籠格鬥] ' + m_from + '邀請您與他進行單挑！'
+	def get_invite_pk_content(m_from, timespan, mode):
+		INVITE_TO_PK = '[鐵籠格鬥] ' + m_from + '邀請您與他進行為期' + timespan + '週的' + mode + '單挑！'
 		return INVITE_TO_PK
 
 	def get_confirm_pk_content(m_from):

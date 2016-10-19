@@ -12,14 +12,49 @@
 				<th>玩家資產</th>
 			</tr>
 			{% for user in user_list %}
-				<tr>
-					<td>{{ user.username }}</td>
-					<td>{{ user.email }}</td>
-					<td>{{ user.profile.assets }}</td>
-					<td><a href="/invite_pk?invitee={{ user.username }}">邀請單挑</a></td>
-				</tr>
+			<tr>
+				<td>{{ user.username }}</td>
+				<td>{{ user.email }}</td>
+				<td>{{ user.profile.assets }}</td>
+			</tr>
 			{% endfor %}
 		</table>
+
+		<h3>邀請單挑</h3>
+		<form action="/invite_pk/" method="post">
+			<label for="invitee">邀請</label>
+			<select name="invitee" id="invitee">
+				{% for user in user_list %}
+				<option value="{{ user.username }}">{{ user.username }}</option>
+				{% endfor %}
+			</select><br>
+			
+			<label for="timespan">進行時限</label>
+			<select name="timespan" id="timespan">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+			</select>週<br>
+			
+			<label for="mode">進行模式</label>
+			<select name="mode" id="mode">
+				{% for mode in pk_mode %}
+				<option value="{{ mode.0 }}">{{ mode.1 }}</option>
+				{% endfor %}
+			</select><br>
+			
+			<input type="submit" value="送出">
+		</form>
+
+		<div>
+			<p>＊模式說明：績效評比係於單挑進行時限內比較兩人達成之投資績效，績效較高者勝。...</p>
+		</div>
+
 		<a href="/">回首頁</a>
 	</body>
 </html>

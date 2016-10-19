@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 from players.models import Profile
+from pk.models import PKGame
 
 def register_view(request):
 	return render(request, 'account/register.html')
@@ -61,5 +62,6 @@ def register(request):
 def user_view(request):
 	user_list = User.objects.all().exclude(username__exact = request.user.username)
 	return render(request, 'account/user_list.html', {
-		'user_list': user_list
+		'user_list': user_list,
+		'pk_mode': PKGame.PK_MODE
 	})

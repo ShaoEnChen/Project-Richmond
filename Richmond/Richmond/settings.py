@@ -44,7 +44,8 @@ INSTALLED_APPS = (
     'cronjob',
     'stock',
     'dailyGame',
-    'notification'
+    'notification',
+    'pk'
 )
 
 CRONJOBS = [
