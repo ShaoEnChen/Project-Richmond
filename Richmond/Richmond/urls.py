@@ -17,8 +17,10 @@ from django.contrib import admin
 # custom
 from index.views import index_view
 from trade.views import select_stock_view, stock_view, add_trade, trade_record_view
-from players.views import login_view, login, register_view, register, user_view
+from players.views import login, register_view, register, user_view
 from dailyGame.views import daily_game_view, join_game, playground_view, add_game_record
+from notification.views import notification_view
+from pk.views import invite_pk
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
@@ -26,15 +28,16 @@ urlpatterns = [
 	url(r'^trade/$', select_stock_view),
 	url(r'^stock/$', stock_view),
 	url(r'^addTrade/$', add_trade),
-	url(r'^accounts/login/$', login_view),
+	url(r'^accounts/login/$', login),
 	url(r'^accounts/login/register/$', register_view),
-	url(r'^login/$', login),
 	url(r'^register/$', register),
-	url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'next_page': '/accounts/login'}),
+	url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/accounts/login'}),
 	url(r'^tradeRecord/$', trade_record_view),
 	url(r'^userList/$', user_view),
 	url(r'^dailyGame/$', daily_game_view),
 	url(r'^joinDaily/$', join_game),
 	url(r'^dailyPlayground/$', playground_view),
-	url(r'^addGameRecord/$', add_game_record)
+	url(r'^addGameRecord/$', add_game_record),
+	url(r'^invite_pk/$', invite_pk),
+	url(r'^notification/$', notification_view)
 ]

@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<h3>登入</h3>
-		<form action="/login/" method="post">
+		<form action="" method="post">
 			{% csrf_token %}
 			<label for="username">名稱</label>
 			<input type="text" name="username" placeholder="請輸入名稱">
@@ -16,6 +16,7 @@
 			<br>
 			<input type="submit" value="送出">
 		</form>
+		<p style="color: red; font-size: 12px;">{{ msg }}</p>
 		<p>或是<a href="register">註冊</a></p>
 		<a href="/">回首頁</a>
 	</body>

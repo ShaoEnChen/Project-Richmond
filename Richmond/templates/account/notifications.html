@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <title>Project Richmond</title>
+	  {% load static %}
+	  <link rel="stylesheet" href="{% static "css/notification.css" %}">
+	</head>
+	<body>
+		<h3>通知</h3>
+		{% if is_empty != None %}
+			<table>
+				<tr>
+					<th>來自</th>
+					<th>類別</th>
+					<th>時間</th>
+				</tr>
+				{% load custom_tags %}
+				{% for notification in notif_list %}
+				<tr>
+					<td>{{ notification.n_from }}</td>
+					<td>{{ NOTIF_TYPE|get_item:notification.n_type }}</td>
+					<td>{{ notification.created_at }}</td>
+					<td><button type="button" onclick="setIsRead()" class="showContent">查看訊息</button></td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<div class="notifContent">
+							{{ notification.content }}
+							{% if notification.n_type == 2 %}
+								<button type="button">接受</button>
+								<button type="button">拒絕</button>
+							{% endif %}
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<h3>目前沒有新的通知</h3>
+		{% endif %}
+		<a href="/">回首頁</a>
+		<script src="{% static "js/jquery-3.1.1.min.js" %}"></script>
+		<script src="{% static "js/notification.js" %}"></script>
+	</body>
+</html>

@@ -97,9 +97,9 @@ def add_trade(request):
 	return redirect(select_stock_view, permanent = True)
 	
 def trade_record_view(request):
-	username = request.user.username
-	user_records = Trade.objects.filter(player_name__exact = username).order_by('-created_at')
+	yourname = request.user.username
+	user_records = Trade.objects.filter(player_name__exact = yourname).order_by('-created_at')
 	return render(request, 'trade/trade_record.html', {
-		'username': username,
+		'username': yourname,
 		'record_list': user_records
 	})
