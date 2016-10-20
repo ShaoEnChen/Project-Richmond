@@ -20,7 +20,7 @@
 				<tr>
 					<td>{{ notification.n_from }}</td>
 					<td>{{ NOTIF_TYPE|get_item:notification.n_type }}</td>
-					<td>{{ notification.created_at }}</td>
+					<td>{{ notification.created_at|date:"F j, o, g:i A" }}</td>
 					<td><button type="button" onclick="setIsRead()" class="showContent">查看訊息</button></td>
 				</tr>
 				<tr>
@@ -28,8 +28,13 @@
 						<div class="notifContent">
 							{{ notification.content }}
 							{% if notification.n_type == 2 %}
-								<button type="button">接受</button>
-								<button type="button">拒絕</button>
+								<form action="/reply/" method="post">
+									<input name="id" type="hidden" value="{{ notification.id }}">
+									<input name="invitation_created_at" type="hidden" value='{{ notification.created_at|date:"F j, o, g:i A" }}'>
+									<input name="invitor" type="hidden" value="{{ notification.n_from }}">
+									<input name="action" type="submit" value="接受">
+									<input name="action" type="submit" value="拒絕">
+								</form>
 							{% endif %}
 						</div>
 					</td>

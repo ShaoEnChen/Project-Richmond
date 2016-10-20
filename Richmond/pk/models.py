@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 class PKGame(models.Model):
@@ -23,6 +24,9 @@ class PKGame(models.Model):
 
 	invitor = models.CharField(max_length=100)
 	invitee = models.CharField(max_length=100)
+	invitor_init_assets = models.FloatField(editable = False, default = 300000.0)
+	invitee_init_assets = models.FloatField(editable = False, default = 300000.0)
+	created_at = models.DateTimeField(default=datetime.now())
 	status = models.IntegerField(choices=STATUS, default=WAITING)
 	mode = models.IntegerField(choices=PK_MODE, default=MODE1)
 	def __str__(self):

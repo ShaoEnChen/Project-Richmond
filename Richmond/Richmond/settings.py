@@ -43,6 +43,7 @@ INSTALLED_APPS = (
 	'players',
     'cronjob',
     'stock',
+    'stockheld',
     'dailyGame',
     'notification',
     'pk'

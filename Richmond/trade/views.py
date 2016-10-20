@@ -74,14 +74,20 @@ def add_trade(request):
 		# Assets increase/decrease due to transactions
 		if bs == 'b':	# buy
 			is_buy = True
-			is_success = request.user.profile.assets_decrease(float(price), vol)
-			holding = Holding_Stock.objects.filter(player_name = request.user.username and s_id = stock_id)
-			holding.hstock_increase(vol)
+			holding = Holding_Stock.objects.filter(player_name__exact = request.user.username).get(s_id__exact = stock_id)
+			check_stock_success = holding.hstock_increase(vol)
+			if check_stock_success:
+				is_success = request.user.profile.assets_decrease(float(price), vol)
+			else:
+				is_success = False
 		elif bs == 's':	# sell
 			is_buy = False
-			is_success = request.user.profile.assets_increase(float(price), vol)
-			holding = Holding_Stock.objects.filter(player_name = request.user.username and s_id = stock_id)
-			holding.hstock_decrease(vol)
+			holding = Holding_Stock.objects.filter(player_name__exact = request.user.username).get(s_id__exact = stock_id)
+			check_stock_success = holding.hstock_decrease(vol)
+			if check_stock_success:
+				is_success = request.user.profile.assets_increase(float(price), vol)
+			else:
+				is_success = False
 		else:
 			is_success = False
 
