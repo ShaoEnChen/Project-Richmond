@@ -45,9 +45,9 @@ def invite_pk(request):
 
 def reply_invitation(request):
 	if request.method == 'POST' and 'action' in request.POST:
-		# if 'id' in request.POST:
-		# 	notif = Notification.objects.get(id__exact = request.POST['id'])
-		# 	notif.set_is_read()
+		if 'id' in request.POST:
+			notif = Notification.objects.get(id__exact = request.POST['id'])
+			notif.set_is_read()
 		if request.POST['action'] == '接受':
 			accept_pk(request)
 		elif request.POST['action'] == '拒絕':
