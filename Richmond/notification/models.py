@@ -13,7 +13,7 @@ class Notification(models.Model):
 	)
 
 	n_type = models.IntegerField(choices=NOTIF_TYPE, default=ALARM)
-	n_from = models.CharField(max_length=100)
+	n_from = models.CharField(max_length=100, default='system')
 	n_to = models.CharField(max_length=100)
 	content = models.CharField(max_length=2000)
 	created_at = models.DateTimeField(default=datetime.now())
@@ -26,16 +26,25 @@ class Notification(models.Model):
 		self.save()
 
 	# type: INVITATION
-	def get_invite_pk_content(m_from, timespan, mode):
-		INVITE_TO_PK = '[鐵籠格鬥] ' + m_from + '邀請您與他進行為期' + timespan + '週的' + mode + '單挑！'
-		return INVITE_TO_PK
+	def get_invite_pk(n_from, timespan, mode):
+		content = '[鐵籠格鬥] ' + n_from + '邀請您與他進行為期' + timespan + '週的' + mode + '單挑！'
+		return content
 
 	# type: ALARM
-	def get_accept_pk_content(m_from):
-		ACCEPT_TO_PK = '[鐵籠格鬥] ' + m_from + '已接受您的單挑邀請'
-		return ACCEPT_TO_PK
+	def get_invitee_accept_pk(n_from):
+		content = '[鐵籠格鬥] ' + n_from + '已接受您的單挑邀請'
+		return content
 
 	# type: ALARM
-	def get_decline_pk_content(m_from):
-		DECLINE_TO_PK = '[鐵籠格鬥] ' + m_from + '拒絕了您的單挑邀請'
-		return DECLINE_TO_PK
+	def get_invitee_decline_pk(n_from):
+		content = '[鐵籠格鬥] ' + n_from + '拒絕了您的單挑邀請'
+		return content
+
+	def get_you_accept_pk(n_from):
+		content = '[鐵籠格鬥] 您已接受' + n_from + '的單挑邀請'
+		return content
+
+	def get_you_decline_pk(n_from):
+		content = '[鐵籠格鬥] 您已拒絕' + n_from + '的單挑邀請'
+		return content
+

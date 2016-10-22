@@ -93,7 +93,7 @@ def add_trade(request):
 
 		if is_success:
 			# Create trade record
-			Trade.objects.create(player_name = request.user.username, is_buy = is_buy, trade_company = stock_id, trade_num = vol)
+			Trade.objects.create(player_name = request.user.username, cur_assets = request.user.profile.assets, is_buy = is_buy, trade_company = stock_id, trade_num = vol)
 		#	some success message
 		# if not is_success:
 		#	some fail message
