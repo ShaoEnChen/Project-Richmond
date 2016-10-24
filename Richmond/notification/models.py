@@ -25,26 +25,15 @@ class Notification(models.Model):
 		self.is_read = True
 		self.save()
 
-	# type: INVITATION
 	def get_invite_pk(n_from, timespan, mode):
 		content = '[鐵籠格鬥] ' + n_from + '邀請您與他進行為期' + timespan + '週的' + mode + '單挑！'
 		return content
 
-	# type: ALARM
-	def get_invitee_accept_pk(n_from):
-		content = '[鐵籠格鬥] ' + n_from + '已接受您的單挑邀請'
+	def invitee_pk_response(response, n_from):
+		content = '[鐵籠格鬥] ' + n_from + '已' + response + '您的單挑邀請'
 		return content
 
-	# type: ALARM
-	def get_invitee_decline_pk(n_from):
-		content = '[鐵籠格鬥] ' + n_from + '拒絕了您的單挑邀請'
-		return content
-
-	def get_you_accept_pk(n_from):
-		content = '[鐵籠格鬥] 您已接受' + n_from + '的單挑邀請'
-		return content
-
-	def get_you_decline_pk(n_from):
-		content = '[鐵籠格鬥] 您已拒絕' + n_from + '的單挑邀請'
+	def your_pk_response(response, n_from):
+		content = '[鐵籠格鬥] 您已' + response + n_from + '的單挑邀請'
 		return content
 
