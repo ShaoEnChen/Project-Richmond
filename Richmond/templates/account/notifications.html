@@ -20,8 +20,23 @@
 				<tr>
 					<td>{{ notification.n_from }}</td>
 					<td>{{ NOTIF_TYPE|get_item:notification.n_type }}</td>
+					<!-- time-format: Month date, year, hour:minute AM/PM -->
 					<td>{{ notification.created_at|date:"F j, o, g:i A" }}</td>
-					<td><button type="button" onclick="setIsRead()" class="showContent">查看訊息</button></td>
+
+					{% if notification.is_read == False and notification.n_type != 2 %}
+					<td>
+						<button type="button" onclick="setIsRead({{ notification.id }})" class="showContent">查看訊息</button>
+					</td>
+					{% else %}
+					<!-- don't set is_read for invitation, set when replied -->
+					<td>
+						<button type="button" class="showContent">查看訊息</button>
+					</td>
+					{% endif %}
+
+					{% if notification.is_read == False %}
+					<td class="unread" id="unread{{ notification.id }}">未讀</td>
+					{% endif %}
 				</tr>
 				<tr>
 					<td colspan="3">

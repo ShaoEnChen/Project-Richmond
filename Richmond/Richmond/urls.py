@@ -19,7 +19,7 @@ from index.views import index_view
 from trade.views import select_stock_view, stock_view, add_trade, trade_record_view
 from players.views import login, register_view, register, user_view
 from dailyGame.views import daily_game_view, join_game, playground_view, add_game_record
-from notification.views import notification_view, invite_pk, reply_invitation
+from notification.views import notification_view, invite_pk, reply_invitation, read_notification
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
@@ -39,5 +39,6 @@ urlpatterns = [
 	url(r'^addGameRecord/$', add_game_record),
 	url(r'^invite_pk/$', invite_pk),
 	url(r'^notification/$', notification_view),
-	url(r'^reply/$', reply_invitation)
+	url(r'^reply/$', reply_invitation),
+	url(r'^readNotification/$', read_notification)
 ]

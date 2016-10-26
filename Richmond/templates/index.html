@@ -3,11 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Project Richmond</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static "css/notification.css" %}">
 	</head>
 	<body>
 		<h2>首頁</h2>
 		{% if request.user.is_authenticated %}
-			<a href="notification">通知</a>
+			<a href="notification">
+				通知<span class="notifBadge">{{ notif_num }}</span>
+			</a>
 			<h4>您好，{{ request.user }}</h4>
 			<h5>目前共有資產 {{ request.user.profile.assets }} 元</h5>
 			{% if request.user.is_superuser %}

@@ -2,3 +2,14 @@
 	margin: 10px 0;
 	display: none;
 }
+
+.notifBadge {
+	color: #fff;
+	background-color: #333;
+	padding: 0 8px;
+	margin-left: 8px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}

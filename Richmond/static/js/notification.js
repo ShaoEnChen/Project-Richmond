@@ -4,6 +4,13 @@ $('.showContent').each(function(index) {
 	});
 });
 
-function setIsRead() {
-	
+function setIsRead(notif_id) {
+	$.ajax({
+		url: '/readNotification/',
+		type: 'POST',
+		data: {'id': notif_id},
+		success: function(response) {
+			$('#unread' + notif_id).css('display', 'none');
+		}
+	});
 }

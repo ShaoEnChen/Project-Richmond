@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from datetime import datetime
 from .models import Notification
 from pk.models import PKGame
 
 def notification_view(request):
 	me = request.user.username
-	notif_list = Notification.objects.filter(n_to__exact = me).filter(is_read__exact = False).order_by('-created_at')
+	notif_list = Notification.objects.filter(n_to__exact = me).exclude(n_type = Notification.INVITATION, is_read = True).order_by('-created_at')
 	try:
 		is_empty = notif_list[0]
 	except:
@@ -47,9 +48,14 @@ def invite_pk(request):
 	return redirect('/', permanent = True)
 
 def reply_invitation(request):
-	if request.method == 'POST' and 'id' in request.POST and 'invitor' in request.POST and 'invitation_created_at' in request.POST and 'action' in request.POST:
-		notif = Notification.objects.get(id__exact = request.POST['id'])
-		notif.set_is_read()
+	# set is_read = True
+	read_notification(request)
+
+	# create notification and set pk game
+	if (request.method == 'POST' 
+		and 'invitor' in request.POST 
+		and 'invitation_created_at' in request.POST 
+		and 'action' in request.POST):
 
 		yourname = request.user.username
 		invitor = request.POST['invitor']
@@ -62,7 +68,8 @@ def reply_invitation(request):
 			n_type = Notification.ALARM,
 			n_from = yourname,
 			n_to = invitor,
-			content = content
+			content = content,
+			created_at = datetime.now()
 		)
 
 		# change pk-game setting
@@ -75,7 +82,8 @@ def reply_invitation(request):
 		Notification.objects.create(
 			n_type = Notification.ALARM,
 			n_to = request.user.username,
-			content = Notification.your_pk_response(action, notif.n_from)
+			content = Notification.your_pk_response(action, invitor),
+			created_at = datetime.now()
 		)
 	return redirect('/', permanent = True)
 
@@ -86,9 +94,10 @@ def accept_pk(request, invitor, invitee, invitation_created_at):
 		invitee__exact = invitee,
 		created_at__gte = invitation_created_at
 	)[0]
-	pkgame.status = PKGame.IN_PROGRESS
-	pkgame.invitee_init_assets = request.user.profile.assets
-	pkgame.save()
+	if pkgame.status == PKGame.WAITING:
+		pkgame.status = PKGame.IN_PROGRESS
+		pkgame.invitee_init_assets = request.user.profile.assets
+		pkgame.save()
 
 def decline_pk(request, invitor, invitee, invitation_created_at):
 	# declined, cancel pk
@@ -97,5 +106,15 @@ def decline_pk(request, invitor, invitee, invitation_created_at):
 		invitee__exact = invitee,
 		created_at__gte = invitation_created_at
 	)[0]
-	pkgame.status = PKGame.CANCELED
-	pkgame.save()
+	if pkgame.status == PKGame.WAITING:
+		pkgame.status = PKGame.CANCELED
+		pkgame.save()
+
+def read_notification(request):
+	if request.method == 'POST' and 'id' in request.POST:
+		notif = Notification.objects.get(id__exact = request.POST['id'])
+		if notif.is_read == False:
+			notif.set_is_read()
+
+	return HttpResponse()
+
