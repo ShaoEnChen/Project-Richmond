@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from datetime import datetime
@@ -52,9 +54,9 @@ def reply_invitation(request):
 	read_notification(request)
 
 	# create notification and set pk game
-	if (request.method == 'POST' 
-		and 'invitor' in request.POST 
-		and 'invitation_created_at' in request.POST 
+	if (request.method == 'POST'
+		and 'invitor' in request.POST
+		and 'invitation_created_at' in request.POST
 		and 'action' in request.POST):
 
 		yourname = request.user.username

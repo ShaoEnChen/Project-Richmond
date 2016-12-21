@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from datetime import datetime
 from .models import Game, JoinedPlayer, GameRecord
@@ -31,7 +33,7 @@ def playground_view(request):
 	msg = ''
 	# access stock from db
 	stock = Stock.getNewestStock(stock_id)
-	
+
 	# get price change from stock
 	try:
 		# get full info of stock

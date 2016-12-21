@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 from django.db import models
 
@@ -19,7 +20,7 @@ class PKGame(models.Model):
 	MODE2 = 2
 	PK_MODE = (
 		(MODE1, '績效評比'),
-		(MODE2, '模式2')
+		(MODE2, '資產評比')
 	)
 
 	LIFE_CHOICE = (

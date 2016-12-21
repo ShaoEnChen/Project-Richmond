@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 from django.db import models
 
@@ -5,7 +6,7 @@ class Notification(models.Model):
 	ALARM = 0
 	WARNING = 1
 	INVITATION = 2
-	
+
 	NOTIF_TYPE = (
 		(ALARM, '系統通知'),
 		(WARNING, '警告'),

@@ -14,12 +14,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Trade',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('player_name', models.CharField(max_length=100)),
-                ('trade', models.CharField(max_length=1)),
+                ('cur_assets', models.FloatField(default=300000.0)),
+                ('is_buy', models.BooleanField(default=True)),
                 ('trade_company', models.CharField(max_length=5)),
                 ('trade_num', models.IntegerField()),
-                ('created_at', models.DateTimeField(default=datetime.datetime(2016, 10, 4, 20, 13, 48, 366580))),
+                ('created_at', models.DateTimeField(default=datetime.datetime(2016, 12, 21, 10, 57, 1, 578076))),
             ],
         ),
     ]

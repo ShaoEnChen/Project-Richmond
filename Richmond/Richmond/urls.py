@@ -17,7 +17,7 @@ from django.contrib import admin
 # custom
 from index.views import index_view
 from trade.views import select_stock_view, stock_view, add_trade, trade_record_view
-from players.views import login, register_view, register, user_view
+from players.views import login, register_view, register, user_view #, subscribe_user, follow_user
 from dailyGame.views import daily_game_view, join_game, playground_view, add_game_record
 from notification.views import notification_view, invite_pk, reply_invitation, read_notification
 
@@ -41,4 +41,6 @@ urlpatterns = [
 	url(r'^notification/$', notification_view),
 	url(r'^reply/$', reply_invitation),
 	url(r'^readNotification/$', read_notification)
+	# url(r'^subscribeUser$', subscribe_user),
+	# url(r'^followUser$', follow_user)
 ]

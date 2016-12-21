@@ -14,12 +14,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Notification',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('n_type', models.IntegerField(choices=[(0, '系統通知'), (1, '警告'), (2, '邀請')], default=0)),
-                ('n_from', models.CharField(max_length=100)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('n_type', models.IntegerField(default=0, choices=[(0, b'\xe7\xb3\xbb\xe7\xb5\xb1\xe9\x80\x9a\xe7\x9f\xa5'), (1, b'\xe8\xad\xa6\xe5\x91\x8a'), (2, b'\xe9\x82\x80\xe8\xab\x8b')])),
+                ('n_from', models.CharField(default=b'system', max_length=100)),
                 ('n_to', models.CharField(max_length=100)),
                 ('content', models.CharField(max_length=2000)),
-                ('created_at', models.DateTimeField(default=datetime.datetime(2016, 10, 18, 19, 58, 45, 748008))),
+                ('created_at', models.DateTimeField(default=datetime.datetime(2016, 12, 21, 10, 57, 1, 593581))),
                 ('is_read', models.BooleanField(default=False)),
             ],
         ),

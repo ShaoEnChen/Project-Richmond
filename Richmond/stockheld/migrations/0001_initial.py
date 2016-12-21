@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import datetime
 
 
 class Migration(migrations.Migration):
@@ -12,12 +11,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Cron_Job_Log',
+            name='Holding_Stock',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('title', models.CharField(max_length=48)),
-                ('exec_time', models.DateTimeField(default=datetime.datetime(2016, 12, 21, 10, 57, 1, 583057))),
-                ('status_code', models.CharField(max_length=1, choices=[(b'1', 'cron_job_success'), (b'2', 'cron_job_failed')])),
+                ('player_name', models.CharField(max_length=100)),
+                ('s_id', models.CharField(max_length=10)),
+                ('hstock', models.IntegerField(default=0)),
             ],
         ),
     ]

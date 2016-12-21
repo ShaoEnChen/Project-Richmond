@@ -25,10 +25,10 @@ def stock_view(request):
 		stock_id = request.GET['stock_id']
 	else:
 		stock_id = None
-	
+
 	# access stock from db
 	stock = Stock.getNewestStock(stock_id)
-	
+
 	# get price change from stock
 	try:
 		# get full info of stock
@@ -61,7 +61,7 @@ def add_trade(request):
 		stock_id = request.POST['stock_id']
 	else:
 		stock_id = None
-	
+
 	# get record info
 	if 'buysell' in request.POST and 'vol' in request.POST and 'price' in request.POST:
 		bs = request.POST['buysell']
@@ -101,11 +101,14 @@ def add_trade(request):
 		pass
 
 	return redirect(select_stock_view, permanent = True)
-	
+
 def trade_record_view(request):
-	yourname = request.user.username
-	user_records = Trade.objects.filter(player_name__exact = yourname).order_by('-created_at')
+	if 'userRecord' in request.GET:
+		username = request.GET['userRecord']
+	else:
+		username = request.user.username
+	user_records = Trade.objects.filter(player_name__exact = username).order_by('-created_at')
 	return render(request, 'trade/trade_record.html', {
-		'username': yourname,
+		'username': username,
 		'record_list': user_records
 	})
