@@ -37,7 +37,7 @@ class PKGame(models.Model):
 
 	invitor = models.CharField(max_length=100)
 	invitee = models.CharField(max_length=100)
-	created_at = models.DateTimeField(default=datetime.now())
+	created_at = models.DateTimeField(default=datetime.now)
 	# 雙方起始金額
 	invitor_init_assets = models.FloatField(editable = False, default = 300000.0)
 	invitee_init_assets = models.FloatField(editable = False, default = 300000.0)

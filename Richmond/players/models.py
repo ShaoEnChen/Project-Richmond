@@ -10,7 +10,7 @@ class Profile(models.Model):
 		on_delete = models.CASCADE,
 		primary_key = True,
 	)
-	created_at = models.DateTimeField(default = datetime.now())
+	created_at = models.DateTimeField(default = datetime.now)
 	assets = models.FloatField(default = 300000.00)
 	exp = models.IntegerField(default = 0)
 	is_in_daily_game = models.BooleanField(default = False)
@@ -33,6 +33,6 @@ class Profile(models.Model):
 class SubscribeList(models.Model):
 	subscriber = models.CharField(max_length = 100)
 	subscribee = models.CharField(max_length = 100)
-	created_at = models.DateTimeField(default = datetime.now())
+	created_at = models.DateTimeField(default = datetime.now)
 	def __str__(self):
 		return "%s subscribed %s" % (self.subscriber, self.subscribee)

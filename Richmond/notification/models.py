@@ -17,7 +17,7 @@ class Notification(models.Model):
 	n_from = models.CharField(max_length=100, default='system')
 	n_to = models.CharField(max_length=100)
 	content = models.CharField(max_length=2000)
-	created_at = models.DateTimeField(default=datetime.now())
+	created_at = models.DateTimeField(default=datetime.now)
 	is_read = models.BooleanField(default=False)
 	def __str__(self):
 		return "%s to %s" % (self.n_from, self.n_to)
@@ -27,7 +27,7 @@ class Notification(models.Model):
 		self.save()
 
 	def get_invite_pk(self, n_from, timespan, mode):
-		content = n_from + 'has 123'
+		content = n_from + '邀請您與他進行為期' + timespan + '週的' + mode + '單挑！'
 		return content
 
 	def invitee_pk_response(response, n_from):
