@@ -15,12 +15,19 @@
 			<h4>您好，{{ request.user }}</h4>
 			<h5>目前共有資產 {{ request.user.profile.assets }} 元</h5>
 			{% if request.user.is_superuser %}
-				<a href="admin">管理</a> <br>
+				<a href="admin">管理</a>
+				<br>
 			{% endif %}
-			<a href="trade">實戰區</a> <br>
-			<a href="tradeRecord">實戰區交易紀錄</a> <br>
-			<a href="dailyGame">插花外戰</a> <br>
-			<a href="userList">其他玩家</a> <br>
+			<a href="rank">排行榜</a>
+			<br>
+			<a href="trade">實戰區</a>
+			<br>
+			<a href="tradeRecord">實戰區交易紀錄</a>
+			<br>
+			<a href="dailyGame">插花外戰</a>
+			<br>
+			<a href="userList">其他玩家</a>
+			<br>
 			<a href="accounts/logout">登出</a>
 		{% else %}
 			<h4>您還尚未登入！</h4>

@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('is_buy', models.BooleanField(default=True)),
                 ('trade_company', models.CharField(max_length=5)),
                 ('trade_num', models.IntegerField()),
-                ('created_at', models.DateTimeField(default=datetime.datetime(2016, 12, 21, 10, 57, 1, 578076))),
+                ('created_at', models.DateTimeField(default=datetime.datetime(2016, 12, 28, 15, 43, 56, 546141))),
             ],
         ),
     ]

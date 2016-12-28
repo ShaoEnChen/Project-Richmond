@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
-from players.models import Profile
+from players.models import Profile, SubscribeList
 from pk.models import PKGame
 from stockheld.models import Holding_Stock
 
@@ -70,16 +71,26 @@ def register(request):
 	return redirect('/accounts/login', permanent = True)
 
 def user_view(request):
+	# Query all other users to show
 	user_list = User.objects.all().exclude(username__exact = request.user.username)
+	# Check if the users are already subscribed
+	is_subscribing = []
+	subscribe_list = SubscribeList.objects.all()
+	for user in user_list:
+		if subscribe_list.filter(subscriber = request.user.username, subscribee = user).exists():
+			is_subscribing.append(True)
+		else:
+			is_subscribing.append(False)
+
 	return render(request, 'account/user_list.html', {
 		'user_list': user_list,
+		'is_subscribing': is_subscribing,
 		'pk_mode': PKGame.PK_MODE
 	})
 
-# def subscribe_user(request):
-# 	user = request['subscribe_user'] || ''
-# 	if user != '':
+def subscribe(request):
+	if request.method == 'POST' and 'subscribee' in request.POST:
+		subscribee = request.POST['subscribee']
+		SubscribeList.objects.create(subscriber = request.user.username, subscribee = subscribee)
 
-
-# def follow_user(request):
-
+	return HttpResponse()

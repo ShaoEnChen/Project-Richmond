@@ -1,19 +1,22 @@
-function follow() {
-	// alert("您已跟注該用戶！\n\n請選擇跟注金額");
-	// $.ajax({
-	// 	url: '/follow/',
-	// 	type: 'POST',
-	// 	data: { 'follow_user': user }
-	// });
-}
+// function follow() {
+// 	alert("您已跟注該用戶！\n\n請選擇跟注金額");
+// 	$.ajax({
+// 		url: '/follow/',
+// 		type: 'POST',
+// 		data: { 'follow_user': user }
+// 	});
+// }
 
-function subscribe() {
-	// alert("您已關注該用戶！");
-	// $.ajax({
-	// 	url: '/subscribe/',
-	// 	type: 'POST',
-	// 	data: { 'subscribe_user': user }
-	// });
+function subscribe(subscribee, id) {
+	$.ajax({
+		url: '/subscribe/',
+		type: 'POST',
+		data: { 'subscribee': subscribee },
+		success: function(response) {
+			alert("您已關注用戶" + subscribee + "!");
+			$('#subscribe' + id).prop('disabled', true);
+		}
+	});
 }
 
 $('#mode').change(function() {

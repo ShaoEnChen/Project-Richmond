@@ -20,8 +20,11 @@
 				</td>
 				<td>{{ user.email }}</td>
 				<td>{{ user.profile.assets }}</td>
-				<td><button type="button" onclick="subscribe()">關注</button></td>
-				<td><button type="button" onclick="follow()">下注</button></td>
+				{% if is_subscribing.forloop.counter0 %}
+				<td><button type="button" id="subscribe{{ user.id }}" onclick="subscribe('{{ user.username }}', {{ user.id }})">關注</button></td>
+				{% else %}
+				<td><button type="button" title="您已經關注此玩家" id="subscribe{{ user.id }}" onclick="subscribe('{{ user.username }}', {{ user.id }})" disabled>關注</button></td>
+				{% endif %}
 			</tr>
 			{% endfor %}
 		</table>

@@ -26,15 +26,15 @@ class Notification(models.Model):
 		self.is_read = True
 		self.save()
 
-	def get_invite_pk(n_from, timespan, mode):
-		content = '[鐵籠格鬥] ' + n_from + '邀請您與他進行為期' + timespan + '週的' + mode + '單挑！'
+	def get_invite_pk(self, n_from, timespan, mode):
+		content = n_from + 'has 123'
 		return content
 
 	def invitee_pk_response(response, n_from):
-		content = '[鐵籠格鬥] ' + n_from + '已' + response + '您的單挑邀請'
+		content = n_from + '已' + response + '您的單挑邀請'
 		return content
 
 	def your_pk_response(response, n_from):
-		content = '[鐵籠格鬥] 您已' + response + n_from + '的單挑邀請'
+		content = '您已' + response + n_from + '的單挑邀請'
 		return content
 

@@ -16,7 +16,7 @@ class Stock(models.Model):
 	def __str__(self):
 		return self.stock_id
 
-	def getNewestStock(stock_id):
+	def getNewestStock(self, stock_id):
 		try:
 			stock = Stock.objects.filter(stock_id__exact=stock_id).order_by('-time')[0]
 		except:

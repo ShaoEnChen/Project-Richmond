@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('stock_id', models.CharField(max_length=10)),
-                ('time', models.DateTimeField(default=datetime.datetime(2016, 12, 21, 10, 57, 1, 585283))),
+                ('time', models.DateTimeField(default=datetime.datetime(2016, 12, 28, 15, 43, 56, 552462))),
                 ('end_price', models.CharField(max_length=10)),
                 ('buy_price', models.CharField(max_length=10)),
                 ('sell_price', models.CharField(max_length=10)),

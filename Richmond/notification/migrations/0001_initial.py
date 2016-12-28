@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('n_from', models.CharField(default=b'system', max_length=100)),
                 ('n_to', models.CharField(max_length=100)),
                 ('content', models.CharField(max_length=2000)),
-                ('created_at', models.DateTimeField(default=datetime.datetime(2016, 12, 21, 10, 57, 1, 593581))),
+                ('created_at', models.DateTimeField(default=datetime.datetime(2016, 12, 28, 15, 43, 56, 560287))),
                 ('is_read', models.BooleanField(default=False)),
             ],
         ),

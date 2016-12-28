@@ -28,10 +28,10 @@ def invite_pk(request):
 			mode = request.POST['mode']
 
 			# get mode name
-			mode_name = PKGame.PK_MODE[int(mode)-1][1]
+			mode_name = PKGame().PK_MODE[int(mode)-1][1]
 
 			# send invitation to invitee
-			content = Notification.get_invite_pk(yourname, timespan, mode_name)
+			content = Notification().get_invite_pk(yourname, timespan, mode_name)
 			Notification.objects.create(
 				n_type = Notification.INVITATION,
 				n_from = yourname,

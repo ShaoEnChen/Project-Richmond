@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=48)),
-                ('exec_time', models.DateTimeField(default=datetime.datetime(2016, 12, 21, 10, 57, 1, 583057))),
+                ('exec_time', models.DateTimeField(default=datetime.datetime(2016, 12, 28, 15, 43, 56, 550513))),
                 ('status_code', models.CharField(max_length=1, choices=[(b'1', 'cron_job_success'), (b'2', 'cron_job_failed')])),
             ],
         ),

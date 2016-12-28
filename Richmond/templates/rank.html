@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bootstrap Case</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		 <style>
+			table, th, td {
+				border-collapse: collapse;
+				text-align: left;
+				padding: 3px;
+				width: 38%;
+			}
+		</style>
+</head>
+<body>
+
+<div class="container">
+	<h2>排行榜</h2>
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#week">週排名</a></li>
+		<li><a data-toggle="tab" href="#month">月排名</a></li>
+		<li><a data-toggle="tab" href="#season">季排名</a></li>
+		<li><a data-toggle="tab" href="#year">年排名</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div id="week" class="tab-pane fade in active">
+			<table>
+				<br>
+				<tr>
+					<th>排名</th>
+					<th>玩家名稱</th>
+					<th>等級</th>
+					<th>ROI (%)</th>
+				</tr>
+				{% for rank in rank_list_week %}     
+				<tr>
+					<td>第{{ forloop.counter }}名</td>
+					{% for i in rank %}     
+					<td>{{ i }}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<div id="month" class="tab-pane fade">
+			<table>
+				<br>
+				<tr>
+					<th>排名</th>
+					<th>玩家名稱</th>
+					<th>等級</th>
+					<th>ROI (%)</th>
+				</tr>
+				{% for rank in rank_list_month %}     
+				<tr>
+					<td>第{{ forloop.counter }}名</td>
+					{% for i in rank %}     
+					<td>{{ i }}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<div id="season" class="tab-pane fade">
+			<table>
+				<br>
+				<tr>
+					<th>排名</th>
+					<th>玩家名稱</th>
+					<th>等級</th>
+					<th>ROI (%)</th>
+				</tr>
+				{% for rank in rank_list_season %}     
+				<tr>
+					<td>第{{ forloop.counter }}名</td>
+					{% for i in rank %}     
+					<td>{{ i }}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<div id="year" class="tab-pane fade">
+			<table>
+				<br>
+				<tr>
+					<th>排名</th>
+					<th>玩家名稱</th>
+					<th>等級</th>
+					<th>ROI (%)</th>
+				</tr>
+				{% for rank in rank_list_year %}     
+				<tr>
+					<td>第{{ forloop.counter }}名</td>
+					{% for i in rank %}     
+					<td>{{ i }}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+
+

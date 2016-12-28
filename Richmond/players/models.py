@@ -29,3 +29,10 @@ class Profile(models.Model):
 			return True
 		else:
 			return False
+
+class SubscribeList(models.Model):
+	subscriber = models.CharField(max_length = 100)
+	subscribee = models.CharField(max_length = 100)
+	created_at = models.DateTimeField(default = datetime.now())
+	def __str__(self):
+		return "%s subscribed %s" % (self.subscriber, self.subscribee)
