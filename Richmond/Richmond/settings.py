@@ -46,7 +46,8 @@ INSTALLED_APPS = (
     'stockheld',
     'dailyGame',
     'notification',
-    'pk'
+    'pk',
+    'rank'
 )
 
 CRONJOBS = [
@@ -108,7 +109,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-TW'
 
 TIME_ZONE = 'Asia/Taipei'
 

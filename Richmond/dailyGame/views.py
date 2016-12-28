@@ -32,7 +32,7 @@ def playground_view(request):
 	stock_id = "2330"
 	msg = ''
 	# access stock from db
-	stock = Stock.getNewestStock(stock_id)
+	stock = Stock().getNewestStock(stock_id)
 
 	# get price change from stock
 	try:
