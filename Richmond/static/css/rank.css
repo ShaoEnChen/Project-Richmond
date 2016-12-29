@@ -1,0 +1,26 @@
+#ranking {
+	min-height: 470px;
+	text-align: center;
+}
+
+.nav-pills {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.tab-content table {
+	margin: 0 auto;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th,
+td {
+	border-collapse: collapse;
+	padding: 5px;
+	width: 25%;
+	text-align: center;
+}

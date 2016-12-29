@@ -1,0 +1,18 @@
+#search {
+	height: calc(100vh - 250px);
+	min-height: 580px;
+	text-align: center;
+}
+
+#search input[type=text] {
+	width: 40%;
+	height: 34px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+#stockList {
+	width: 90%;
+	margin-top: 20px;
+	margin-left: 5%;
+}

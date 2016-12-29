@@ -3,13 +3,150 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Project Richmond</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		{% load static %}
+		<!-- <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"> -->
+		<link rel="stylesheet" href="{% static "css/general.css" %}">
+		<link rel="stylesheet" href="{% static "css/select_stock.css" %}">
 	</head>
 	<body>
-		<h2>交易系統</h2>
-		<form action="/stock/" method="get">
-			<input type="text" name="stock_id" placeholder="輸入台股代號">
-			<input type="submit" value="送出">
-		</form>
+		<nav class="navbar navbar-custom navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" data-toggle="collapse" data-target=".navbar-main-collapse" class="navbar-toggle">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="/" class="navbar-brand">
+						Project Richmond
+					</a>
+				</div>
+				<div class="collapse navbar-collapse navbar-main-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="/">首頁</a>
+						</li>
+						{% if request.user.is_authenticated %}
+						<li>
+							<a href="/rank">排行榜</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								擂台區<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="/trade">實戰區</a>
+								</li>
+								<li>
+									<a href="/dailyGame">插花外戰</a>
+								</li>
+								<li>
+									<a href="/userList">其他玩家</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="/tradeRecord">
+								<img src="{% static "images/boss.png" %}">
+								您好，{{ request.user }}
+							</a>
+						</li>
+						<li>
+							<a href="/notification">
+								通知<span class="notifBadge">{{ notif_num }}</span>
+							</a>
+						</li>
+						{% if request.user.is_superuser %}
+							<li>
+								<a href="/admin">管理</a>
+							</li>
+						{% endif %}
+						<li>
+							<a href="/accounts/logout">登出</a>
+						</li>
+						{% else %}
+						<li>
+							<a href="/accounts/login">登入</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<section id="search">
+			<div class="container">
+				<h2>交易首頁</h2>
+				<form action="/stock/" method="get">
+					<input type="text" name="stock_id" placeholder="輸入台股代號">
+					<input type="submit" class="btn btn-default" value="送出">
+				</form>
+				<!-- '1101', '1102', '1216', '1301', '1303', '1326', '1402', '1722', '2002', '2105', '2201', '2207', '2301', '2303', '2308', '2311', '2317', '2324', '2325', '2330', '2347', '2353', '2354', '2357', '2382', '2409', '2412', '2454', '2474', '2498', '2801', '2880', '2881', '2882', '2883', '2885', '2886', '2890', '2891', '2892', '2912', '3008', '3045', '3231', '3481', '3673', '4904', '5880', '6505' -->
+				<div id="stockList">
+					<div class="row">
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=1101">1101 台泥</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=1102">1102 亞泥</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=1216">1216 統一</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=1301">1301 台塑</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=1303">1303 南亞</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=1326">1326 台化</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=1402">1402 遠東新</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=1722">1722 台肥</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2002">2002 中鋼</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2105">2105 正新</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2201">2201 裕隆</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2207">2207 和泰車</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2301">2301 光寶科</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2303">2303 聯電</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2308">2308 台達電</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2311">2311 日月光</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2317">2317 鴻海</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2324">2324 仁寶</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2325">2325 矽品</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2330">2330 台積電</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2347">2347 聯強</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2353">2353 宏碁</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2354">2354 鴻準</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2357">2357 華碩</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2382">2382 廣達</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2409">2409 友達</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2412">2412 中華電</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2454">2454 聯發科</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2474">2474 可成</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2498">2498 宏達電</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2801">2801 彰銀</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2880">2880 華南金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2881">2881 富邦金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2882">2882 國泰金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2883">2883 開發金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2885">2885 元大金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2886">2886 兆豐金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2890">2890 永豐金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2891">2891 中信金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2892">2892 第一金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=2912">2912 統一超</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=3008">3008 大立光</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=3045">3045 台灣大</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=3231">3231 緯創</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=3481">3481 群創</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=3673">3673 TPK-KY</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=4904">4904 遠傳</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=5880">5880 合庫金</a>
+						<a class="col-xs-2 col-sm-3 btn btn-default" href="/stock/?stock_id=6505">6505 台塑化</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<footer>
+			<p>Copyright &copy; 2016 NTUIM</p>
+		</footer>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</body>
-	<a href="/">回首頁</a>
 <html>

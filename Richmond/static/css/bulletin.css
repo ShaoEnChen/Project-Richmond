@@ -1,0 +1,21 @@
+#dailyGames {
+	min-height: 470px;
+}
+
+#dailyGames img {
+	width: 20%;
+	height: auto;
+	margin-top: 40px;
+	margin-left: 40%;
+}
+
+.msg {
+	margin: 40px 0;
+}
+
+table, th, td {
+	margin: 0 auto;
+	padding: 8px 16px;
+	font-size: 20px;
+}
+

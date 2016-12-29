@@ -1,0 +1,9 @@
+#tradeRecord {
+	min-height: 470px;
+}
+
+table, th, td {
+	margin: 0 auto;
+	padding: 8px 16px;
+	font-size: 20px;
+}

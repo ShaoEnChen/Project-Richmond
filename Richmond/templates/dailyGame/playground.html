@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	  <meta charset="UTF-8">
-	  <title>Project Richmond</title>
+		<meta charset="utf-8">
+		<title>Project Richmond</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		{% load static %}
+		<!-- <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"> -->
+		<link rel="stylesheet" href="{% static "css/general.css" %}">
+		<link rel="stylesheet" href="{% static "css/playground.css" %}">
 	</head>
 	<body>
-		<p>你現在有 {{ request.user.profile.assets }} 元</p>
+		<div class="assets">
+			<img id="coins" src="{% static "images/general/coins.png" %}">
+			<h5>{{ request.user.profile.assets }} 元</h5>
+		</div>
 		<h2>台積電大亂鬥</h2>
-		<h4>{{ msg }}</h4>
+		<h4 class="error">{{ msg }}</h4>
 		<div>
 			<table style="border: 1px solid #666;" rules="all" cellpadding="6">
 				<tbody>
@@ -57,5 +66,14 @@
 			<h4>資料來源：<a href="https://tw.stock.yahoo.com/q/q?s=2330">Yahoo!股市</a></h4>
 		</div>
 		<a href="/">回首頁</a>
+
+
+		<footer>
+			<p>Copyright &copy; 2016 NTUIM</p>
+		</footer>
+
+		<!-- <script src="{% static "js/bootstrap.min.js" %}"></script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</body>
 </html>

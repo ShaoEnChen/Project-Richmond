@@ -1,3 +1,26 @@
+#players {
+	min-height: 470px;
+}
+
+table, th, td {
+	margin: 0 auto;
+	padding: 8px 16px;
+	font-size: 20px;
+}
+
+#invitePK {
+	text-align: center;
+}
+
+.form-control {
+	width: 20%;
+	margin: 0 auto;
+}
+
+.mode_desc {
+	margin: 20px auto;
+}
+
 #mode2_desc {
 	display: none;
 }

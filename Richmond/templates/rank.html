@@ -1,113 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Bootstrap Case</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		 <style>
-			table, th, td {
-				border-collapse: collapse;
-				text-align: left;
-				padding: 3px;
-				width: 38%;
-			}
-		</style>
-</head>
-<body>
+	<head>
+		<title>Project Richmond</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		{% load static %}
+		<link rel="stylesheet" href="{% static "css/general.css" %}">
+		<link rel="stylesheet" href="{% static "css/rank.css" %}">
+	</head>
+	<body>
+		<nav class="navbar navbar-custom navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" data-toggle="collapse" data-target=".navbar-main-collapse" class="navbar-toggle">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="/" class="navbar-brand">
+						Project Richmond
+					</a>
+				</div>
+				<div class="collapse navbar-collapse navbar-main-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="/">首頁</a>
+						</li>
+						{% if request.user.is_authenticated %}
+						<li>
+							<a href="/rank">排行榜</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								擂台區<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="/trade">實戰區</a>
+								</li>
+								<li>
+									<a href="/dailyGame">插花外戰</a>
+								</li>
+								<li>
+									<a href="/userList">其他玩家</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="/tradeRecord">
+								<img src="{% static "images/boss.png" %}">
+								您好，{{ request.user }}
+							</a>
+						</li>
+						<li>
+							<a href="/notification">
+								通知<span class="notifBadge">{{ notif_num }}</span>
+							</a>
+						</li>
+						{% if request.user.is_superuser %}
+							<li>
+								<a href="/admin">管理</a>
+							</li>
+						{% endif %}
+						<li>
+							<a href="/accounts/logout">登出</a>
+						</li>
+						{% else %}
+						<li>
+							<a href="/accounts/login">登入</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-<div class="container">
-	<h2>排行榜</h2>
-	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#week">週排名</a></li>
-		<li><a data-toggle="tab" href="#month">月排名</a></li>
-		<li><a data-toggle="tab" href="#season">季排名</a></li>
-		<li><a data-toggle="tab" href="#year">年排名</a></li>
-	</ul>
+		<section id="ranking">
+			<div class="container">
+				<h2>排行榜</h2>
+				<ul class="nav nav-pills">
+					<li class="active"><a data-toggle="pill" href="#week">週排名</a></li>
+					<li><a data-toggle="pill" href="#month">月排名</a></li>
+					<li><a data-toggle="pill" href="#season">季排名</a></li>
+					<li><a data-toggle="pill" href="#year">年排名</a></li>
+				</ul>
 
-	<div class="tab-content">
-		<div id="week" class="tab-pane fade in active">
-			<table>
-				<br>
-				<tr>
-					<th>排名</th>
-					<th>玩家名稱</th>
-					<th>等級</th>
-					<th>ROI (%)</th>
-				</tr>
-				{% for rank in rank_list_week %}     
-				<tr>
-					<td>第{{ forloop.counter }}名</td>
-					{% for i in rank %}     
-					<td>{{ i }}</td>
-					{% endfor %}
-				</tr>
-				{% endfor %}
-			</table>
-		</div>
-		<div id="month" class="tab-pane fade">
-			<table>
-				<br>
-				<tr>
-					<th>排名</th>
-					<th>玩家名稱</th>
-					<th>等級</th>
-					<th>ROI (%)</th>
-				</tr>
-				{% for rank in rank_list_month %}     
-				<tr>
-					<td>第{{ forloop.counter }}名</td>
-					{% for i in rank %}     
-					<td>{{ i }}</td>
-					{% endfor %}
-				</tr>
-				{% endfor %}
-			</table>
-		</div>
-		<div id="season" class="tab-pane fade">
-			<table>
-				<br>
-				<tr>
-					<th>排名</th>
-					<th>玩家名稱</th>
-					<th>等級</th>
-					<th>ROI (%)</th>
-				</tr>
-				{% for rank in rank_list_season %}     
-				<tr>
-					<td>第{{ forloop.counter }}名</td>
-					{% for i in rank %}     
-					<td>{{ i }}</td>
-					{% endfor %}
-				</tr>
-				{% endfor %}
-			</table>
-		</div>
-		<div id="year" class="tab-pane fade">
-			<table>
-				<br>
-				<tr>
-					<th>排名</th>
-					<th>玩家名稱</th>
-					<th>等級</th>
-					<th>ROI (%)</th>
-				</tr>
-				{% for rank in rank_list_year %}     
-				<tr>
-					<td>第{{ forloop.counter }}名</td>
-					{% for i in rank %}     
-					<td>{{ i }}</td>
-					{% endfor %}
-				</tr>
-				{% endfor %}
-			</table>
-		</div>
-	</div>
-</div>
+				<div class="tab-content">
+					<div id="week" class="tab-pane fade in active">
+						<table>
+							<br>
+							<tr>
+								<th>排名</th>
+								<th>玩家名稱</th>
+								<th>等級</th>
+								<th>ROI (%)</th>
+							</tr>
+							{% for rank in rank_list_week %}
+							<tr>
+								<td>第{{ forloop.counter }}名</td>
+								{% for i in rank %}
+								<td>{{ i }}</td>
+								{% endfor %}
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+					<div id="month" class="tab-pane fade">
+						<table>
+							<br>
+							<tr>
+								<th>排名</th>
+								<th>玩家名稱</th>
+								<th>等級</th>
+								<th>ROI (%)</th>
+							</tr>
+							{% for rank in rank_list_month %}
+							<tr>
+								<td>第{{ forloop.counter }}名</td>
+								{% for i in rank %}
+								<td>{{ i }}</td>
+								{% endfor %}
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+					<div id="season" class="tab-pane fade">
+						<table>
+							<br>
+							<tr>
+								<th>排名</th>
+								<th>玩家名稱</th>
+								<th>等級</th>
+								<th>ROI (%)</th>
+							</tr>
+							{% for rank in rank_list_season %}
+							<tr>
+								<td>第{{ forloop.counter }}名</td>
+								{% for i in rank %}
+								<td>{{ i }}</td>
+								{% endfor %}
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+					<div id="year" class="tab-pane fade">
+						<table>
+							<br>
+							<tr>
+								<th>排名</th>
+								<th>玩家名稱</th>
+								<th>等級</th>
+								<th>ROI (%)</th>
+							</tr>
+							{% for rank in rank_list_year %}
+							<tr>
+								<td>第{{ forloop.counter }}名</td>
+								{% for i in rank %}
+								<td>{{ i }}</td>
+								{% endfor %}
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
 
-</body>
+		<footer>
+			<p>Copyright &copy; 2016 NTUIM</p>
+		</footer>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</body>
 </html>
 
 

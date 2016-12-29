@@ -1,0 +1,33 @@
+/* Intro */
+#logo {
+	width: 40%;
+	height: auto;
+}
+
+.intro {
+	width: 60%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.intro h2 {
+	color: #886940;
+}
+
+.intro h4 {
+	line-height: 28px;
+}
+
+.video-wrap {
+	box-shadow: 0 0 10px rgba(76, 74, 72, 0.2), 0 10px 20px rgba(76, 74, 72, 0.3), 0 10px 60px rgba(76, 74, 72, 0.3);
+}
+
+/* Gaming Features */
+.func {
+	text-align: center;
+}
+
+.func img {
+	width: 40%;
+	height: auto;
+}

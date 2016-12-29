@@ -1,0 +1,1 @@
+$('#navbar').load('../../templates/navbar.html');

@@ -70,21 +70,22 @@ def register(request):
 
 	return redirect('/accounts/login', permanent = True)
 
-def user_view(request):
+def player_view(request):
 	# Query all other users to show
-	user_list = User.objects.all().exclude(username__exact = request.user.username)
+	players = User.objects.all().exclude(username__exact = request.user.username)
 	# Check if the users are already subscribed
-	is_subscribing = []
+	subscribed = []
 	subscribe_list = SubscribeList.objects.all()
-	for user in user_list:
-		if subscribe_list.filter(subscriber = request.user.username, subscribee = user).exists():
-			is_subscribing.append(True)
+	for player in players:
+		if subscribe_list.filter(subscriber = request.user.username, subscribee = player).exists():
+			subscribed.append(True)
 		else:
-			is_subscribing.append(False)
+			subscribed.append(False)
+
+	players_subscribed_list = zip(players, subscribed)
 
 	return render(request, 'account/user_list.html', {
-		'user_list': user_list,
-		'is_subscribing': is_subscribing,
+		'players_subscribed_list': players_subscribed_list,
 		'pk_mode': PKGame.PK_MODE
 	})
 
