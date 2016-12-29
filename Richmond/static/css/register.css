@@ -1,0 +1,22 @@
+.register {
+	position: relative;
+	top: 50vh;
+	transform: translateY(-50%);
+	width: 40%;
+	min-width: 280px;
+	margin: 0 auto;
+	padding: 40px 60px;
+	border: 1px #bbb solid;
+	text-align: center;
+}
+
+#logo {
+	width: 40%;
+	min-width: 150px;
+	height: auto;
+}
+
+.register input {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
