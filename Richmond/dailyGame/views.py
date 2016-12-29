@@ -5,6 +5,7 @@ from datetime import datetime
 from .models import Game, JoinedPlayer, GameRecord
 from stock.models import Stock
 from players.models import Profile
+from notification.models import Notification
 
 def daily_game_view(request):
 	try:
@@ -12,6 +13,7 @@ def daily_game_view(request):
 	except Game.DoesNotExist:
 		game = None
 	return render(request, 'dailyGame/bulletin.html', {
+		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count(),
 		'game': game
 	})
 
@@ -53,6 +55,7 @@ def playground_view(request):
 		current_time = ''
 
 	return render(request, 'dailyGame/playground.html', {
+		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count(),
 		'stock': stock,
 		'change': change,
 		'current_time': current_time,

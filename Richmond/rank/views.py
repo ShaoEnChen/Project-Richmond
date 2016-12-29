@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from trade.models import Trade
 from datetime import date, timedelta
 from operator import itemgetter
+from notification.models import Notification
 
 def rank_view(request):
 	user_list = User.objects.all()
@@ -93,6 +94,7 @@ def rank_view(request):
 	rank_list_year.sort(key = lambda elem : elem[2], reverse=True)
 
 	return render(request, 'rank.html', {
+		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count(),
 		'rank_list_week': rank_list_week,
 		'rank_list_month': rank_list_month,
 		'rank_list_season': rank_list_season,

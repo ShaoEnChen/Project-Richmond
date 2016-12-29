@@ -5,6 +5,7 @@ from players.models import Profile
 from stock.models import Stock
 from stockheld.models import Holding_Stock
 from .models import Trade
+from notification.models import Notification
 # from cronjob.crawler import crawl
 # import re # REGEX
 # import pytz # time
@@ -18,7 +19,9 @@ pat = re.compile(p)
 LEGAL_STOCKS = ['1101', '1102', '1216', '1301', '1303', '1326', '1402', '1722', '2002', '2105', '2201', '2207', '2301', '2303', '2308', '2311', '2317', '2324', '2325', '2330', '2347', '2353', '2354', '2357', '2382', '2409', '2412', '2454', '2474', '2498', '2801', '2880', '2881', '2882', '2883', '2885', '2886', '2890', '2891', '2892', '2912', '3008', '3045', '3231', '3481', '3673', '4904', '5880', '6505']
 
 def select_stock_view(request):
-	return render(request, 'trade/select_stock.html')
+	return render(request, 'trade/select_stock.html', {
+		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count()
+	})
 
 def stock_view(request):
 	msg = ''
@@ -49,6 +52,7 @@ def stock_view(request):
 		current_time = ''
 
 	return render(request, 'trade/stock.html', {
+		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count(),
 		'stock_id': stock_id,
 		'stock': stock,
 		'change': change,
@@ -115,6 +119,7 @@ def trade_record_view(request):
 		username = request.user.username
 	user_records = Trade.objects.filter(player_name__exact = username).order_by('-created_at')
 	return render(request, 'trade/trade_record.html', {
+		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count(),
 		'username': username,
 		'record_list': user_records
 	})

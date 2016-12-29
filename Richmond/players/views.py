@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from players.models import Profile, SubscribeList
 from pk.models import PKGame
 from stockheld.models import Holding_Stock
+from notification.models import Notification
 
 def register_view(request):
 	return render(request, 'account/register.html')
@@ -85,6 +86,7 @@ def player_view(request):
 	players_subscribed_list = zip(players, subscribed)
 
 	return render(request, 'account/user_list.html', {
+		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count(),
 		'players_subscribed_list': players_subscribed_list,
 		'pk_mode': PKGame.PK_MODE
 	})

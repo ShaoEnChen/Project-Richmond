@@ -14,6 +14,7 @@ def notification_view(request):
 	except:
 		is_empty = None
 	return render(request, 'account/notifications.html', {
+		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count(),
 		'NOTIF_TYPE': dict(Notification.NOTIF_TYPE),
 		'notif_list': notif_list,
 		'is_empty': is_empty
