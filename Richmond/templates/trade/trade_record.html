@@ -95,7 +95,11 @@
 							{% else %}
 								<td>賣</td>
 							{% endif %}
-							<td>{{ record.trade_company }}</td>
+							<td>
+								<a href="/stock/?stock_id={{ record.trade_company }}">
+									{{ record.trade_company }}
+								</a>
+							</td>
 							<td>{{ record.trade_num }}</td>
 							<td>{{ record.created_at }}</td>
 						</tr>
