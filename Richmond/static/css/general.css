@@ -71,6 +71,17 @@ nav a:active {
 	background: #fff;
 }
 
+.notifBadge {
+	color: #fff;
+	background-color: #600000;
+	padding: 0 8px;
+	margin-left: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	border-radius: 8px;
+}
+
 /* Assets */
 .assets {
 	position: absolute;
