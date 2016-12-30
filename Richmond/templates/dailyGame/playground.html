@@ -11,62 +11,132 @@
 		<link rel="stylesheet" href="{% static "css/playground.css" %}">
 	</head>
 	<body>
+		<nav class="navbar navbar-custom navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" data-toggle="collapse" data-target=".navbar-main-collapse" class="navbar-toggle">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="/" class="navbar-brand">
+						Project Richmond
+					</a>
+				</div>
+				<div class="collapse navbar-collapse navbar-main-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="/">首頁</a>
+						</li>
+						{% if request.user.is_authenticated %}
+						<li>
+							<a href="/rank">排行榜</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								擂台區<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="/trade">實戰區</a>
+								</li>
+								<li>
+									<a href="/dailyGame">插花外戰</a>
+								</li>
+								<li>
+									<a href="/userList">其他玩家</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="/tradeRecord">
+								<img src="{% static "images/boss.png" %}">
+								您好，{{ request.user }}
+							</a>
+						</li>
+						<li>
+							<a href="/notification">
+								通知<span class="notifBadge">{{ notif_num }}</span>
+							</a>
+						</li>
+						{% if request.user.is_superuser %}
+							<li>
+								<a href="/admin">管理</a>
+							</li>
+						{% endif %}
+						<li>
+							<a href="/accounts/logout">登出</a>
+						</li>
+						{% else %}
+						<li>
+							<a href="/accounts/login">登入</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
+
 		<div class="assets">
 			<img id="coins" src="{% static "images/general/coins.png" %}">
 			<h5>{{ request.user.profile.assets }} 元</h5>
 		</div>
-		<h2>台積電大亂鬥</h2>
-		<h4 class="error">{{ msg }}</h4>
-		<div>
-			<table style="border: 1px solid #666;" rules="all" cellpadding="6">
-				<tbody>
-					<tr>
-						<th>股票代號</th>
-						<th>時間</th>
-						<th>成交</th>
-						<th>買進</th>
-						<th>賣出</th>
-						<th>漲跌</th>
-						<th>張數</th>
-						<th>昨收</th>
-						<th>開盤</th>
-						<th>最高</th>
-						<th>最低</th>
-						<th>個股資料</th>
-					</tr>
-					<tr>
-						<td>2330</td>
-						<td>{{ current_time }}</td>
-						<td>{{ stock.end_price }}</td>
-						<td>{{ stock.buy_price }}</td>
-						<td>{{ stock.sell_price }}</td>
-						<td>{{ change }}</td>
-						<td>{{ stock.total_num }}</td>
-						<td>{{ stock.yesterday_end }}</td>
-						<td>{{ stock.start_price }}</td>
-						<td>{{ stock.high_price }}</td>
-						<td>{{ stock.low_price }}</td>
-						<td><a href="https://tw.finance.yahoo.com/q/ts?s=2330">詳細資料</a></td>
-					</tr>
-					<tr>
-						<th>下單</th>
-						<td colspan="11">
-							<form action="/addGameRecord/" method="post">
-								<input type="hidden" name="stock_id" value="2330">
-								<input type="hidden" name="price" value={{ stock.end_price }}>
-								<input type="radio" name="buysell" value="b">買
-								<input type="radio" name="buysell" value="s">賣
-								<input type="text" name="vol" size="5">張
-								<input type="submit" value="送出">
-							</form>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<h4>資料來源：<a href="https://tw.stock.yahoo.com/q/q?s=2330">Yahoo!股市</a></h4>
-		</div>
-		<a href="/">回首頁</a>
 
+		<section id="playground">
+			<div class="container">
+				<h2>台積電大亂鬥</h2>
+				<h4 class="error">{{ msg }}</h4>
+				<div>
+					<table style="border: 1px solid #666;" rules="all" cellpadding="6">
+						<tbody>
+							<tr>
+								<th>股票代號</th>
+								<th>時間</th>
+								<th>成交</th>
+								<th>買進</th>
+								<th>賣出</th>
+								<th>漲跌</th>
+								<th>張數</th>
+								<th>昨收</th>
+								<th>開盤</th>
+								<th>最高</th>
+								<th>最低</th>
+								<th>個股資料</th>
+							</tr>
+							<tr>
+								<td>2330</td>
+								<td>{{ current_time }}</td>
+								<td>{{ stock.end_price }}</td>
+								<td>{{ stock.buy_price }}</td>
+								<td>{{ stock.sell_price }}</td>
+								<td>{{ change }}</td>
+								<td>{{ stock.total_num }}</td>
+								<td>{{ stock.yesterday_end }}</td>
+								<td>{{ stock.start_price }}</td>
+								<td>{{ stock.high_price }}</td>
+								<td>{{ stock.low_price }}</td>
+								<td><a href="https://tw.finance.yahoo.com/q/ts?s=2330">詳細資料</a></td>
+							</tr>
+							<tr>
+								<th>下單</th>
+								<td colspan="11">
+									<form action="/addGameRecord/" method="post">
+										<input type="hidden" name="stock_id" value="2330">
+										<input type="hidden" name="price" value={{ stock.end_price }}>
+										<input type="radio" name="buysell" value="b">買
+										<input type="radio" name="buysell" value="s">賣
+										<input type="text" name="vol" size="5">張
+										<input type="submit" class="btn btn-default" value="送出">
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<h4>資料來源：<a href="https://tw.stock.yahoo.com/q/q?s=2330">Yahoo!股市</a></h4>
+				</div>
+			</div>
+		</section>
 
 		<footer>
 			<p>Copyright &copy; 2016 NTUIM</p>
