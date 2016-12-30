@@ -1,12 +1,3 @@
-// function follow() {
-// 	alert("您已跟注該用戶！\n\n請選擇跟注金額");
-// 	$.ajax({
-// 		url: '/follow/',
-// 		type: 'POST',
-// 		data: { 'follow_user': user }
-// 	});
-// }
-
 function subscribe(subscribee, id) {
 	$.ajax({
 		url: '/subscribe/',
