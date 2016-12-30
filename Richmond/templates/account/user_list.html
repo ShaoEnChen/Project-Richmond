@@ -115,7 +115,7 @@
 
 					<label for="invitee">邀請</label>
 					<select class="form-control" name="invitee" id="invitee">
-						{% for player, subscribed in players_subscribed_list %}
+						{% for player in players %}
 						<option value="{{ player.username }}">{{ player.username }}</option>
 						{% endfor %}
 					</select><br>

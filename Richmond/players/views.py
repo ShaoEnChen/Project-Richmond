@@ -88,6 +88,7 @@ def player_view(request):
 	return render(request, 'account/user_list.html', {
 		'notif_num': Notification.objects.filter(n_to = request.user, is_read = False).count(),
 		'players_subscribed_list': players_subscribed_list,
+		'players': players,
 		'pk_mode': PKGame.PK_MODE
 	})
 
